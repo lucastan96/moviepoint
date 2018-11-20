@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">MoviePoint</string>
+    <string name="app_name">Moviepoint</string>
+
+    <string name="bottom_nav_1">In Theaters</string>
+    <string name="bottom_nav_2">Watchlist</string>
+    <string name="bottom_nav_3">History</string>
+    <string name="title_activity_main_activity">MainActivityA</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
