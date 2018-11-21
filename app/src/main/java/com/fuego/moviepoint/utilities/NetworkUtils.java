@@ -22,10 +22,9 @@ public class NetworkUtils {
 
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
-    public static ArrayList<Movie> fetchData(String url) throws IOException {
+    public static ArrayList<Movie> fetchData(String url) {
         ArrayList<Movie> movies = new ArrayList<>();
         try {
-
             URL new_url = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) new_url.openConnection();
             connection.connect();

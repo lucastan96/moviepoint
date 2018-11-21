@@ -34,7 +34,7 @@ public class TheaterFragment extends Fragment {
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
         movieViewModel.getAllMovies().observe(this, adapter::setMovies);
 
-        new FetchMovies();
+        new FetchMovies().execute();
 
         return view;
 

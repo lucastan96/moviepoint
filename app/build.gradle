@@ -20,6 +20,15 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'armeabi-v7a', 'x86_64'
+            universalApk true
+        }
+    }
     buildToolsVersion '28.0.3'
 }
 
@@ -39,5 +48,6 @@ dependencies {
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
-    implementation 'org.apache.directory.studio:org.apache.commons.io:2.4'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.5'
+    implementation group: 'commons-cli', name: 'commons-cli', version: '1.4'
 }
