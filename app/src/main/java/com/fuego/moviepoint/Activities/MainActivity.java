@@ -1,10 +1,14 @@
-package com.fuego.moviepoint;
+package com.fuego.moviepoint.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.fuego.moviepoint.Fragment.HistoryFragment;
+import com.fuego.moviepoint.R;
+import com.fuego.moviepoint.Fragment.TheaterFragment;
+import com.fuego.moviepoint.Fragment.WatchlistFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
