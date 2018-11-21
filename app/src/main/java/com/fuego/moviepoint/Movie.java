@@ -12,6 +12,9 @@ public class Movie {
     private String title;
     private String imagePath;
 
+    public Movie() {
+    }
+
     public Movie(String title, String imagePath) {
         this.title = title;
         this.imagePath = imagePath;
@@ -19,6 +22,14 @@ public class Movie {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public int getId() {
