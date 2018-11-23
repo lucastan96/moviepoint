@@ -59,7 +59,6 @@ public class NetworkUtils {
             e.printStackTrace();
             Log.e(TAG, "Error occurred during JSON Parsing", e);
         }
-
     }
 
     public static Boolean networkStatus(Context context) {
@@ -71,6 +70,4 @@ public class NetworkUtils {
         }
         return false;
     }
-
-
 }
