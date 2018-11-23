@@ -1,7 +1,6 @@
 package com.fuego.moviepoint;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -31,21 +30,6 @@ public abstract class MovieDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            new PopulateDbAsyncTask(instance).execute();
         }
     };
-
-    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
-
-        private MovieDao movieDao;
-
-        private PopulateDbAsyncTask(MovieDatabase db) {
-            movieDao = db.movieDao();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            return null;
-        }
-    }
 }
