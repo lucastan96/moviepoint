@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -41,6 +42,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         loadFragment(new TheaterFragment());
         new FetchMovies().execute();
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     private boolean loadFragment(Fragment fragment) {
