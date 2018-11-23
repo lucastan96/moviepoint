@@ -2,9 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/nav_action"
-        android:icon="@drawable/ic_settings"
-        android:title="@string/nav_action"
+        android:id="@+id/nav_action_1"
+        android:icon="@drawable/ic_search"
+        android:title="@string/nav_action_1"
         android:onClick="openSettings"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/nav_action_2"
+        android:title="@string/nav_action_2"
+        android:onClick="openSettings"
+        app:showAsAction="collapseActionView" />
 </menu>

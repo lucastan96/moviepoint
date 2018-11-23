@@ -1,12 +1,15 @@
 <resources>
     <string name="app_name">Moviepoint</string>
+    <string name="app_logo">Moviepoint Logo</string>
 
     <string name="nav_bottom_1">In Theaters</string>
     <string name="nav_bottom_2">Watchlist</string>
     <string name="nav_bottom_3">History</string>
-    <string name="nav_action">Settings</string>
+    <string name="nav_action_1">Search</string>
+    <string name="nav_action_2">Settings</string>
     <string name="title_activity_main_activity">MainActivityA</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
 </resources>
