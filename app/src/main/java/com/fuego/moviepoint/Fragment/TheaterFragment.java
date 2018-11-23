@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.fuego.moviepoint.FetchMovies;
 import com.fuego.moviepoint.MovieAdapter;
 import com.fuego.moviepoint.MovieViewModel;
 import com.fuego.moviepoint.R;
@@ -34,7 +33,6 @@ public class TheaterFragment extends Fragment {
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
         movieViewModel.getAllMovies().observe(this, adapter::setMovies);
 
-        new FetchMovies().execute();
 
         return view;
 
