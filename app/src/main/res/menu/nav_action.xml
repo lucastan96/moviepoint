@@ -9,7 +9,7 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/nav_action_2"
-        android:title="@string/nav_action_2"
         android:onClick="openSettings"
+        android:title="@string/nav_action_2"
         app:showAsAction="collapseActionView" />
 </menu>
