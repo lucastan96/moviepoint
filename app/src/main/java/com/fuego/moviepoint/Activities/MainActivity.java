@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.fuego.moviepoint.Fragment.HistoryFragment;
 import com.fuego.moviepoint.Fragment.TheaterFragment;
@@ -24,12 +26,15 @@ import androidx.lifecycle.ViewModelProviders;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private MovieViewModel movieViewModel;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+
+        progressBar = findViewById(R.id.progressBar);
 
         BottomNavigationView navigation = findViewById(R.id.nav_bottom);
         navigation.setOnNavigationItemSelectedListener(this);
@@ -91,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -99,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             for (Movie m : mPopularList) {
                 movieViewModel.insert(m);
             }
+            progressBar.setVisibility(View.INVISIBLE);
         }
     }
 }

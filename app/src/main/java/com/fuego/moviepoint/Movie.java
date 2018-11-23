@@ -1,5 +1,7 @@
 package com.fuego.moviepoint;
 
+import java.util.Objects;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -42,5 +44,20 @@ public class Movie {
 
     public String getImagePath() {
         return imagePath;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Movie)) return false;
+        Movie movie = (Movie) o;
+        return getId() == movie.getId() &&
+                Objects.equals(getTitle(), movie.getTitle()) &&
+                Objects.equals(getImagePath(), movie.getImagePath());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getTitle(), getImagePath());
     }
 }

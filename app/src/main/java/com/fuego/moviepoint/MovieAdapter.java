@@ -3,7 +3,10 @@ package com.fuego.moviepoint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
 
     private List<Movie> movies = new ArrayList<>();
+    public static final String MOVIE_BASE_URL = "https://image.tmdb.org/t/p/w185";
 
     @NonNull
     @Override
@@ -27,7 +31,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
     public void onBindViewHolder(@NonNull MovieHolder holder, int position) {
         Movie currentMovie = movies.get(position);
         holder.textViewTitle.setText(currentMovie.getTitle());
-        holder.textViewImagePath.setText(currentMovie.getImagePath());
+
+        Picasso.get().load(MOVIE_BASE_URL + currentMovie.getImagePath())
+                .placeholder(R.drawable.ic_film)
+                .into(holder.textViewImagePath);
     }
 
     @Override
@@ -42,7 +49,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
 
     class MovieHolder extends RecyclerView.ViewHolder {
         private TextView textViewTitle;
-        private TextView textViewImagePath;
+        private ImageView textViewImagePath;
 
         public MovieHolder(@NonNull View itemView) {
             super(itemView);

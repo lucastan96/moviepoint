@@ -45,9 +45,6 @@ public abstract class MovieDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            movieDao.insert(new Movie("Harry Potter 1", "123.png"));
-            movieDao.insert(new Movie("Harry Potter 2", "542.png"));
-            movieDao.insert(new Movie("Harry Potter 3", "653.png"));
             return null;
         }
     }
