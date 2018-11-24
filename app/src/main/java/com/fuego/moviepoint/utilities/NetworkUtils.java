@@ -52,6 +52,7 @@ public class NetworkUtils {
                 Movie movie = new Movie(); //New Movie object
                 movie.setTitle(jsonObject.getString("title"));
                 movie.setImagePath(jsonObject.getString("poster_path"));
+                movie.setOverview(jsonObject.getString("overview"));
                 //Adding a new movie object into ArrayList
                 list.add(movie);
             }
