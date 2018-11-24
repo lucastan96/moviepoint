@@ -1,6 +1,8 @@
-package com.fuego.moviepoint;
+package com.fuego.moviepoint.Fragment;
 
 import android.os.Bundle;
+
+import com.fuego.moviepoint.R;
 
 import androidx.preference.PreferenceFragmentCompat;
 
