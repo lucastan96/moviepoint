@@ -1,13 +1,17 @@
 package com.fuego.moviepoint.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.fuego.moviepoint.Activities.MovieDetailActivity;
 import com.fuego.moviepoint.MovieAdapter;
 import com.fuego.moviepoint.MovieViewModel;
 import com.fuego.moviepoint.R;
+
+import java.util.Objects;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -30,11 +34,13 @@ public class TheaterFragment extends Fragment {
         MovieAdapter adapter = new MovieAdapter();
         recyclerView.setAdapter(adapter);
 
-        movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+        movieViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(MovieViewModel.class);
         movieViewModel.getAllMovies().observe(this, adapter::setMovies);
 
-
+        adapter.setOnItemClickListener(movie -> {
+            Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+            startActivity(intent);
+        });
         return view;
-
     }
 }
