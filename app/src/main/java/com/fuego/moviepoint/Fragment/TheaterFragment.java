@@ -39,7 +39,10 @@ public class TheaterFragment extends Fragment {
 
         adapter.setOnItemClickListener(movie -> {
             Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
-            startActivity(intent);
+            intent.putExtra(MovieDetailActivity.EXTRA_TITLE, movie.getTitle());
+            intent.putExtra(MovieDetailActivity.EXTRA_IMAGE, movie.getImagePath());
+            intent.putExtra(MovieDetailActivity.EXTRA_OVERVIEW, movie.getOverview());
+            startActivityForResult(intent, 1);
         });
         return view;
     }
