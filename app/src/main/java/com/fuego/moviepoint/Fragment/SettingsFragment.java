@@ -1,8 +1,10 @@
 package com.fuego.moviepoint.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.fuego.moviepoint.Activities.AboutActivity;
 import com.fuego.moviepoint.MovieViewModel;
 import com.fuego.moviepoint.R;
 
@@ -13,7 +15,7 @@ import androidx.preference.PreferenceFragmentCompat;
 public class SettingsFragment extends PreferenceFragmentCompat {
     private static final String TAG = SettingsFragment.class.getSimpleName();
 
-    Preference clearCache;
+    Preference clearCache, aboutActivity;
     private MovieViewModel movieViewModel;
 
     @Override
@@ -23,10 +25,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
 
         clearCache = findPreference("deleteAll");
+        aboutActivity = findPreference("about");
 
         clearCache.setOnPreferenceClickListener(preference -> {
             movieViewModel.deleteAllNotes();
             Toast.makeText(getActivity(), "Cleared all Movies", Toast.LENGTH_SHORT).show();
+            return true;
+        });
+
+        aboutActivity.setOnPreferenceClickListener(preference -> {
+            Intent intent = new Intent(getActivity(), AboutActivity.class);
+            startActivity(intent);
             return true;
         });
 
