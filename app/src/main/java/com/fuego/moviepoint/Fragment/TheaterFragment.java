@@ -2,6 +2,7 @@ package com.fuego.moviepoint.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,9 @@ public class TheaterFragment extends Fragment {
             intent.putExtra(MovieDetailActivity.EXTRA_TITLE, movie.getTitle());
             intent.putExtra(MovieDetailActivity.EXTRA_IMAGE, movie.getImagePath());
             intent.putExtra(MovieDetailActivity.EXTRA_OVERVIEW, movie.getOverview());
-            startActivityForResult(intent, 1);
+
+            Log.d("Hello", "onCreateView: " + intent.getStringExtra(MovieDetailActivity.EXTRA_TITLE));
+            startActivity(intent);
         });
         return view;
     }
