@@ -88,7 +88,7 @@ public class MovieRepository {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            movieDoa.deleteAllNotes();
+            movieDoa.deleteAllMovies();
             return null;
         }
     }

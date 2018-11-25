@@ -4,15 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fuego.moviepoint.MovieAdapter;
 import com.fuego.moviepoint.R;
+import com.fuego.moviepoint.Watchlist.Watched;
+import com.fuego.moviepoint.Watchlist.WatchedViewModal;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
@@ -20,6 +25,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     public static final String EXTRA_IMAGE = "com.fuego.moviepoint.Activities.extra.IMAGE";
     public static final String EXTRA_OVERVIEW = "com.fuego.moviepoint.Activities.extra.OVERVIEW";
 
+    private WatchedViewModal watchedViewModal;
+    private FloatingActionButton floatingActionButton;
     private TextView moviePlot, movieTitle;
     private ImageView imageView;
 
@@ -28,11 +35,14 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
+        watchedViewModal = ViewModelProviders.of(this).get(WatchedViewModal.class);
+
         Intent intent = getIntent();
         Toolbar toolbar = findViewById(R.id.toolbar);
         moviePlot = findViewById(R.id.movie_plot);
         movieTitle = findViewById(R.id.movie_title);
         imageView = findViewById(R.id.movie_poster);
+        floatingActionButton = findViewById(R.id.watch_movie);
 
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
@@ -46,5 +56,14 @@ public class MovieDetailActivity extends AppCompatActivity {
                     .placeholder(R.drawable.ic_film)
                     .into(imageView);
         }
+
+        floatingActionButton.setOnClickListener(v -> {
+            Watched watched = new Watched();
+            watched.setTitle(intent.getStringExtra(EXTRA_TITLE));
+            watched.setOverview(intent.getStringExtra(EXTRA_OVERVIEW));
+            watched.setImagePath(intent.getStringExtra(EXTRA_IMAGE));
+            watchedViewModal.insert(watched);
+            Toast.makeText(this, "Added to watchlist", Toast.LENGTH_SHORT).show();
+        });
     }
 }
