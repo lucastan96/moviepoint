@@ -27,7 +27,8 @@
             android:name=".Activities.SettingsActivity"
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.MovieDetailActivity"></activity>
+        <activity android:name=".Activities.MovieDetailActivity" />
+        <activity android:name=".Activities.SearchActivity"></activity>
     </application>
 
 </manifest>

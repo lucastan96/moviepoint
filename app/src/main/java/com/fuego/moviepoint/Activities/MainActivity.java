@@ -86,6 +86,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         startActivity(i);
     }
 
+    public void openSearch(MenuItem menuItem) {
+        Intent i = new Intent(MainActivity.this, SearchActivity.class);
+        startActivity(i);
+    }
+
     public class FetchMovies extends AsyncTask<Void, Void, Void> {
         final private String API_KEY = "8792d844a767cde129ca36235f60093c";
 
