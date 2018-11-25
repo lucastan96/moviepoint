@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         navigation.setOnNavigationItemSelectedListener(this);
 
         loadFragment(new TheaterFragment());
+
+
         new FetchMovies().execute();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -93,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         @Override
         protected Void doInBackground(Void... voids) {
             popularMovies = "https://api.themoviedb.org/3/movie/now_playing?api_key=" + API_KEY + "&language=en-ie&page=1";
-
             mPopularList = new ArrayList<>();
             mPopularList = NetworkUtils.fetchData(popularMovies);
             return null;
@@ -115,5 +116,3 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 }
-
-

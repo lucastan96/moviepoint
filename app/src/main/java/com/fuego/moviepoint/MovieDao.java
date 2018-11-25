@@ -21,6 +21,9 @@ public interface MovieDao  {
     @Delete
     void delete(Movie movie);
 
+    @Query("DELETE FROM movie_table")
+    void deleteAllNotes();
+
     @Query("SELECT * FROM movie_table")
     LiveData<List<Movie>> getAllMovies();
 
