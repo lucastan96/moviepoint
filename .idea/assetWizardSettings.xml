@@ -77,10 +77,13 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_info" />
+                            <entry key="height" value="512" />
+                            <entry key="outputName" value="ic_globe_americas_solid" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\seanj\Desktop\logo.svg" />
+                            <entry key="sourceFile" value="C:\Users\seanj\Downloads\globe-americas-solid.svg" />
+                            <entry key="width" value="496" />
                           </map>
                         </option>
                       </PersistentState>

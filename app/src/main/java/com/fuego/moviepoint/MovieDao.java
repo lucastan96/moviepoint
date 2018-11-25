@@ -27,7 +27,4 @@ public interface MovieDao  {
     @Query("SELECT * FROM movie_table")
     LiveData<List<Movie>> getAllMovies();
 
-
-
-
 }

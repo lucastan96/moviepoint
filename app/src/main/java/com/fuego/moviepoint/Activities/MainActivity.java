@@ -1,8 +1,10 @@
 package com.fuego.moviepoint.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,12 +32,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private MovieViewModel movieViewModel;
     ProgressBar progressBar;
     SwipeRefreshLayout swipeRefreshLayout;
+    SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         progressBar = findViewById(R.id.progressBar);
         swipeRefreshLayout = findViewById(R.id.swipeContainer);
@@ -110,13 +114,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     public class FetchMovies extends AsyncTask<Void, Void, Void> {
         final private String API_KEY = "8792d844a767cde129ca36235f60093c";
+        private String savedRegion = mPrefs.getString(getString(R.string.region), getResources().getString(R.string.default_region));
 
         String popularMovies;
         ArrayList<Movie> mPopularList;
 
         @Override
         protected Void doInBackground(Void... voids) {
-            popularMovies = "https://api.themoviedb.org/3/movie/now_playing?api_key=" + API_KEY + "&language=en-ie&page=1";
+            popularMovies = "https://api.themoviedb.org/3/movie/now_playing?api_key=" + API_KEY + "&language=en-US&page=1&region=" + savedRegion;
             mPopularList = new ArrayList<>();
             mPopularList = NetworkUtils.fetchData(popularMovies);
             return null;

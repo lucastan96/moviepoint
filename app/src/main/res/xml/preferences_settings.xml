@@ -12,6 +12,14 @@
         android:summary="Delete all movies from phone"
         android:title="Clear Local Cache" />
 
+    <ListPreference
+        android:entries="@array/region_names_array"
+        android:entryValues="@array/regions_values_array"
+        android:icon="@drawable/ic_globe_americas_solid"
+        android:key="region"
+        android:summary="Select a region"
+        android:title="Region" />
+
     <Preference
         android:icon="@drawable/ic_info"
         android:key="about"
