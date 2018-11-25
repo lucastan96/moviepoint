@@ -1,10 +1,11 @@
-package com.fuego.moviepoint;
+package com.fuego.moviepoint.Watchlist;
+
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "movie_table")
-public class Movie {
+@Entity(tableName = "watched_table")
+public class Watched {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -13,10 +14,10 @@ public class Movie {
     private String imagePath;
     private String overview;
 
-    public Movie() {
+    public Watched() {
     }
 
-    public Movie(String title, String imagePath, String overview) {
+    public Watched(String title, String imagePath, String overview) {
         this.title = title;
         this.imagePath = imagePath;
         this.overview = overview;
@@ -53,5 +54,4 @@ public class Movie {
     public void setOverview(String overview) {
         this.overview = overview;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.fuego.moviepoint;
+package com.fuego.moviepoint.Movies;
 
 import android.content.Context;
 

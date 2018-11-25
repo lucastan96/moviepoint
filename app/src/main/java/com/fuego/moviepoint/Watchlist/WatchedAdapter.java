@@ -1,4 +1,4 @@
-package com.fuego.moviepoint;
+package com.fuego.moviepoint.Watchlist;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.fuego.moviepoint.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -14,23 +15,23 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
+public class WatchedAdapter extends RecyclerView.Adapter<WatchedAdapter.MovieHolder> {
 
-    private List<Movie> movies = new ArrayList<>();
     public static final String MOVIE_BASE_URL = "https://image.tmdb.org/t/p/w185";
+    private List<Watched> movies = new ArrayList<>();
     private OnItemClickListener listener;
 
     @NonNull
     @Override
-    public MovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public WatchedAdapter.MovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.movie_item, parent, false);
         return new MovieHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieHolder holder, int position) {
-        Movie currentMovie = movies.get(position);
+    public void onBindViewHolder(@NonNull WatchedAdapter.MovieHolder holder, int position) {
+        Watched currentMovie = movies.get(position);
         holder.textViewTitle.setText(currentMovie.getTitle());
 
         Picasso.get().load(MOVIE_BASE_URL + currentMovie.getImagePath())
@@ -43,7 +44,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         return movies.size();
     }
 
-    public void setMovies(List<Movie> movies) {
+    public void setMovies(List<Watched> movies) {
         this.movies = movies;
         notifyDataSetChanged();
     }
@@ -53,7 +54,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Movie movie);
+        void onItemClick(Watched movie);
     }
 
     class MovieHolder extends RecyclerView.ViewHolder {

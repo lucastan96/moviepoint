@@ -13,10 +13,10 @@ import android.widget.ProgressBar;
 import com.fuego.moviepoint.Fragment.HistoryFragment;
 import com.fuego.moviepoint.Fragment.TheaterFragment;
 import com.fuego.moviepoint.Fragment.WatchlistFragment;
-import com.fuego.moviepoint.Movie;
-import com.fuego.moviepoint.MovieViewModel;
+import com.fuego.moviepoint.Movies.Movie;
+import com.fuego.moviepoint.Movies.MovieViewModel;
 import com.fuego.moviepoint.R;
-import com.fuego.moviepoint.utilities.NetworkUtils;
+import com.fuego.moviepoint.Utilities.NetworkUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;

@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fuego.moviepoint.Activities.MovieDetailActivity;
-import com.fuego.moviepoint.MovieAdapter;
-import com.fuego.moviepoint.MovieViewModel;
+import com.fuego.moviepoint.Movies.MovieAdapter;
+import com.fuego.moviepoint.Movies.MovieViewModel;
 import com.fuego.moviepoint.R;
 
 import java.util.Objects;

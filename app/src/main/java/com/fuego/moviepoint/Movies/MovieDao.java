@@ -1,4 +1,4 @@
-package com.fuego.moviepoint;
+package com.fuego.moviepoint.Movies;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public interface MovieDao  {
     void delete(Movie movie);
 
     @Query("DELETE FROM movie_table")
-    void deleteAllNotes();
+    void deleteAllMovies();
 
     @Query("SELECT * FROM movie_table")
     LiveData<List<Movie>> getAllMovies();

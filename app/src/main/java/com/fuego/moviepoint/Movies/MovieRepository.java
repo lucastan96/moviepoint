@@ -1,4 +1,4 @@
-package com.fuego.moviepoint;
+package com.fuego.moviepoint.Movies;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -88,7 +88,7 @@ public class MovieRepository {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            movieDoa.deleteAllNotes();
+            movieDoa.deleteAllMovies();
             return null;
         }
     }

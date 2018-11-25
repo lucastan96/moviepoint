@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import com.fuego.moviepoint.Activities.AboutActivity;
-import com.fuego.moviepoint.MovieViewModel;
+import com.fuego.moviepoint.Movies.MovieViewModel;
 import com.fuego.moviepoint.R;
 
 import androidx.lifecycle.ViewModelProviders;
