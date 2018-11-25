@@ -28,7 +28,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         aboutActivity = findPreference("about");
 
         clearCache.setOnPreferenceClickListener(preference -> {
-            movieViewModel.deleteAllNotes();
+            movieViewModel.deleteAllMovies();
             Toast.makeText(getActivity(), "Cleared all Movies", Toast.LENGTH_SHORT).show();
             return true;
         });

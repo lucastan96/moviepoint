@@ -2,7 +2,6 @@ package com.fuego.moviepoint.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +28,7 @@ public class TheaterFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view);
 
+
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         recyclerView.setHasFixedSize(false);
 
@@ -43,10 +43,9 @@ public class TheaterFragment extends Fragment {
             intent.putExtra(MovieDetailActivity.EXTRA_TITLE, movie.getTitle());
             intent.putExtra(MovieDetailActivity.EXTRA_IMAGE, movie.getImagePath());
             intent.putExtra(MovieDetailActivity.EXTRA_OVERVIEW, movie.getOverview());
-
-            Log.d("Hello", "onCreateView: " + intent.getStringExtra(MovieDetailActivity.EXTRA_TITLE));
             startActivity(intent);
         });
+
         return view;
     }
 }

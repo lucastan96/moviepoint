@@ -24,10 +24,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private MovieViewModel movieViewModel;
     ProgressBar progressBar;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +38,33 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
 
         progressBar = findViewById(R.id.progressBar);
+        swipeRefreshLayout = findViewById(R.id.swipeContainer);
 
         BottomNavigationView navigation = findViewById(R.id.nav_bottom);
         navigation.setOnNavigationItemSelectedListener(this);
 
         loadFragment(new TheaterFragment());
 
-
+        movieViewModel.deleteAllMovies();
         new FetchMovies().execute();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            swipeRefreshLayout.setRefreshing(true);
+            if (currentFragment instanceof TheaterFragment) {
+                movieViewModel.deleteAllMovies();
+                new FetchMovies().execute();
+            } else if (currentFragment instanceof WatchlistFragment) {
+
+            } else if (currentFragment instanceof HistoryFragment) {
+
+            }
+            swipeRefreshLayout.setRefreshing(false);
+        });
     }
 
     private boolean loadFragment(Fragment fragment) {
