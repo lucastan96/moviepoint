@@ -4,6 +4,7 @@
         <item>Ireland</item>
         <item>United States</item>
         <item>China</item>
+        <item>Malaysia</item>
     </string-array>
 
     <!-- foreground color values array -->
@@ -11,6 +12,7 @@
         <item>IE</item>
         <item>US</item>
         <item>CN</item>
+        <item>MY</item>
     </string-array>
 
 </resources>
