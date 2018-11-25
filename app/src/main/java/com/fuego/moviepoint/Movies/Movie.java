@@ -1,4 +1,4 @@
-package com.fuego.moviepoint;
+package com.fuego.moviepoint.Movies;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

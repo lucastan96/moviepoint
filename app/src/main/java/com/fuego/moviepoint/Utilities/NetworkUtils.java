@@ -1,8 +1,8 @@
-package com.fuego.moviepoint.utilities;
+package com.fuego.moviepoint.Utilities;
 
 import android.util.Log;
 
-import com.fuego.moviepoint.Movie;
+import com.fuego.moviepoint.Movies.Movie;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;

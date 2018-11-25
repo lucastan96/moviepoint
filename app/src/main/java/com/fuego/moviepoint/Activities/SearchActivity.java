@@ -7,11 +7,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-import com.fuego.moviepoint.Movie;
-import com.fuego.moviepoint.MovieAdapter;
-import com.fuego.moviepoint.MovieViewModel;
+import com.fuego.moviepoint.Movies.Movie;
+import com.fuego.moviepoint.Movies.MovieAdapter;
+import com.fuego.moviepoint.Movies.MovieViewModel;
 import com.fuego.moviepoint.R;
-import com.fuego.moviepoint.utilities.NetworkUtils;
+import com.fuego.moviepoint.Utilities.NetworkUtils;
 
 import java.util.ArrayList;
 

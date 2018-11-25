@@ -1,10 +1,12 @@
 package com.fuego.moviepoint.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.fuego.moviepoint.Activities.MovieDetailActivity;
 import com.fuego.moviepoint.R;
 import com.fuego.moviepoint.Watchlist.WatchedAdapter;
 import com.fuego.moviepoint.Watchlist.WatchedViewModal;
@@ -35,6 +37,14 @@ public class WatchlistFragment extends Fragment {
 
         watchedViewModal = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(WatchedViewModal.class);
         watchedViewModal.getAllMovies().observe(this, adapter::setMovies);
+
+        adapter.setOnItemClickListener(movie -> {
+            Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+            intent.putExtra(MovieDetailActivity.EXTRA_TITLE, movie.getTitle());
+            intent.putExtra(MovieDetailActivity.EXTRA_IMAGE, movie.getImagePath());
+            intent.putExtra(MovieDetailActivity.EXTRA_OVERVIEW, movie.getOverview());
+            startActivity(intent);
+        });
 
         return view;
     }

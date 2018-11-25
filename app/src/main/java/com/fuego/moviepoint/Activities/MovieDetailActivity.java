@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fuego.moviepoint.MovieAdapter;
+import com.fuego.moviepoint.Movies.MovieAdapter;
 import com.fuego.moviepoint.R;
 import com.fuego.moviepoint.Watchlist.Watched;
 import com.fuego.moviepoint.Watchlist.WatchedViewModal;

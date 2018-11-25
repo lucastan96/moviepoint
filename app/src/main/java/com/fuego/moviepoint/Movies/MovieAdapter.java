@@ -1,4 +1,4 @@
-package com.fuego.moviepoint;
+package com.fuego.moviepoint.Movies;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.fuego.moviepoint.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
