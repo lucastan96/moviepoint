@@ -24,10 +24,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private MovieViewModel movieViewModel;
     ProgressBar progressBar;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +38,33 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
 
         progressBar = findViewById(R.id.progressBar);
+        swipeRefreshLayout = findViewById(R.id.swipeContainer);
 
         BottomNavigationView navigation = findViewById(R.id.nav_bottom);
         navigation.setOnNavigationItemSelectedListener(this);
 
         loadFragment(new TheaterFragment());
+
+        movieViewModel.deleteAllMovies();
         new FetchMovies().execute();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            swipeRefreshLayout.setRefreshing(true);
+            if (currentFragment instanceof TheaterFragment) {
+                movieViewModel.deleteAllMovies();
+                new FetchMovies().execute();
+            } else if (currentFragment instanceof WatchlistFragment) {
+
+            } else if (currentFragment instanceof HistoryFragment) {
+
+            }
+            swipeRefreshLayout.setRefreshing(false);
+        });
     }
 
     private boolean loadFragment(Fragment fragment) {
@@ -84,6 +103,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         startActivity(i);
     }
 
+    public void openSearch(MenuItem menuItem) {
+        Intent i = new Intent(MainActivity.this, SearchActivity.class);
+        startActivity(i);
+    }
+
     public class FetchMovies extends AsyncTask<Void, Void, Void> {
         final private String API_KEY = "8792d844a767cde129ca36235f60093c";
 
@@ -92,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         @Override
         protected Void doInBackground(Void... voids) {
-            popularMovies = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + API_KEY;
+            popularMovies = "https://api.themoviedb.org/3/movie/now_playing?api_key=" + API_KEY + "&language=en-ie&page=1";
             mPopularList = new ArrayList<>();
             mPopularList = NetworkUtils.fetchData(popularMovies);
             return null;
@@ -114,5 +138,3 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 }
-
-

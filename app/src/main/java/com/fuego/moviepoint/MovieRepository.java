@@ -29,6 +29,10 @@ public class MovieRepository {
         new DeleteMovieAsyncTask(movieDao).execute(movie);
     }
 
+    public void deleteAllMovies() {
+        new DeleteAllMoviesAsyncTask(movieDao).execute();
+    }
+
     public LiveData<List<Movie>> getAllMovies() {
         return allMovies;
     }
@@ -71,6 +75,20 @@ public class MovieRepository {
         @Override
         protected Void doInBackground(Movie... movies) {
             movieDao.delete(movies[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteAllMoviesAsyncTask extends AsyncTask<Void, Void, Void> {
+        private MovieDao movieDoa;
+
+        private DeleteAllMoviesAsyncTask(MovieDao movieDoa) {
+            this.movieDoa = movieDoa;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            movieDoa.deleteAllNotes();
             return null;
         }
     }

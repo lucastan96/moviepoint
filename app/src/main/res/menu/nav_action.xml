@@ -5,7 +5,7 @@
         android:id="@+id/nav_action_1"
         android:icon="@drawable/ic_search"
         android:title="@string/nav_action_1"
-        android:onClick="openSettings"
+        android:onClick="openSearch"
         app:showAsAction="always" />
     <item
         android:id="@+id/nav_action_2"

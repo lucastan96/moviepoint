@@ -1,8 +1,5 @@
 package com.fuego.moviepoint.utilities;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.fuego.moviepoint.Movie;
@@ -42,7 +39,6 @@ public class NetworkUtils {
     }
 
     public static void parseJson(String data, ArrayList<Movie> list) {
-
         try {
             JSONObject mainObject = new JSONObject(data);
 
@@ -52,6 +48,7 @@ public class NetworkUtils {
                 Movie movie = new Movie(); //New Movie object
                 movie.setTitle(jsonObject.getString("title"));
                 movie.setImagePath(jsonObject.getString("poster_path"));
+                movie.setOverview(jsonObject.getString("overview"));
                 //Adding a new movie object into ArrayList
                 list.add(movie);
             }
@@ -59,18 +56,5 @@ public class NetworkUtils {
             e.printStackTrace();
             Log.e(TAG, "Error occurred during JSON Parsing", e);
         }
-
     }
-
-    public static Boolean networkStatus(Context context) {
-        ConnectivityManager manager = (ConnectivityManager)
-                context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-            return true;
-        }
-        return false;
-    }
-
-
 }

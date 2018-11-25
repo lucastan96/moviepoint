@@ -2,8 +2,8 @@ package com.fuego.moviepoint.Activities;
 
 import android.os.Bundle;
 
+import com.fuego.moviepoint.Fragment.SettingsFragment;
 import com.fuego.moviepoint.R;
-import com.fuego.moviepoint.SettingsFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;

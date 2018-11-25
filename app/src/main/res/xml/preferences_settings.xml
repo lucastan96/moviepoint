@@ -5,4 +5,16 @@
         android:key="notifications"
         android:summary="On"
         android:title="Notifications" />
+
+    <Preference
+        android:icon="@drawable/ic_film"
+        android:key="deleteAll"
+        android:summary="Delete all movies from phone"
+        android:title="Clear Local Cache" />
+
+    <Preference
+        android:icon="@drawable/ic_info"
+        android:key="about"
+        android:summary="About Screen"
+        android:title="About" />
 </PreferenceScreen>

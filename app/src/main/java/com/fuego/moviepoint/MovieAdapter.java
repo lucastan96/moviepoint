@@ -18,6 +18,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
 
     private List<Movie> movies = new ArrayList<>();
     public static final String MOVIE_BASE_URL = "https://image.tmdb.org/t/p/w185";
+    private OnItemClickListener listener;
 
     @NonNull
     @Override
@@ -47,6 +48,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         notifyDataSetChanged();
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Movie movie);
+    }
+
     class MovieHolder extends RecyclerView.ViewHolder {
         private TextView textViewTitle;
         private ImageView textViewImagePath;
@@ -55,6 +64,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.movie_title);
             textViewImagePath = itemView.findViewById(R.id.image_path);
+
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (listener != null && position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(movies.get(position));
+                }
+            });
         }
     }
 }
