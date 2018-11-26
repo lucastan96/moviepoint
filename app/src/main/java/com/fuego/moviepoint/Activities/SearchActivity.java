@@ -8,10 +8,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-import com.fuego.moviepoint.Movies.Movie;
-import com.fuego.moviepoint.Movies.MovieAdapter;
-import com.fuego.moviepoint.Movies.MovieViewModel;
 import com.fuego.moviepoint.R;
+import com.fuego.moviepoint.Search.SearchedMovieViewModel;
+import com.fuego.moviepoint.Search.SearchedMovies;
+import com.fuego.moviepoint.Search.SearchedMoviesAdapter;
 import com.fuego.moviepoint.Utilities.NetworkUtils;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    private MovieViewModel movieViewModel;
+    private SearchedMovieViewModel movieViewModel;
     private EditText searchField;
     private int orientation;
 
@@ -45,19 +45,17 @@ public class SearchActivity extends AppCompatActivity {
         }
         recyclerView.setHasFixedSize(false);
 
-        MovieAdapter adapter = new MovieAdapter();
+        SearchedMoviesAdapter adapter = new SearchedMoviesAdapter();
         recyclerView.setAdapter(adapter);
 
-        movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+        movieViewModel = ViewModelProviders.of(this).get(SearchedMovieViewModel.class);
         movieViewModel.getAllMovies().observe(this, adapter::setMovies);
-        movieViewModel.deleteAllMovies();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         toolbar.setNavigationOnClickListener(v -> {
-            movieViewModel.deleteAllMovies();
             finish();
         });
 
@@ -89,7 +87,7 @@ public class SearchActivity extends AppCompatActivity {
 
     public class FetchMovies extends AsyncTask<Void, Void, Void> {
         final private String API_KEY = "8792d844a767cde129ca36235f60093c";
-        ArrayList<Movie> searchedMovies = new ArrayList<>();
+        ArrayList<SearchedMovies> searchedMovies = new ArrayList<>();
         String searchQuery;
         private String query;
 
@@ -100,8 +98,7 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             searchQuery = " https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY + "&language=en-US&query=" + query + "&page=1&include_adult=false";
-            searchedMovies = new ArrayList<>();
-            searchedMovies = NetworkUtils.fetchData(searchQuery);
+            searchedMovies = NetworkUtils.fetchSearchData(searchQuery);
             return null;
         }
 
@@ -109,13 +106,12 @@ public class SearchActivity extends AppCompatActivity {
         protected void onPreExecute() {
             movieViewModel.deleteAllMovies();
             super.onPreExecute();
-
         }
 
         @Override
         protected void onPostExecute(Void voids) {
             super.onPostExecute(voids);
-            for (Movie m : searchedMovies) {
+            for (SearchedMovies m : searchedMovies) {
                 movieViewModel.insert(m);
             }
         }
