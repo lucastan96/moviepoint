@@ -2,8 +2,6 @@ package com.fuego.moviepoint.Search;
 
 import android.app.Application;
 
-import com.fuego.moviepoint.Movies.Movie;
-
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -20,15 +18,15 @@ public class SearchedMovieViewModel extends AndroidViewModel {
         allMovies = repository.getAllMovies();
     }
 
-    public void insert(Movie movie) {
+    public void insert(SearchedMovies movie) {
         repository.insert(movie);
     }
 
-    public void update(Movie movie) {
+    public void update(SearchedMovies movie) {
         repository.insert(movie);
     }
 
-    public void delete(Movie movie) {
+    public void delete(SearchedMovies movie) {
         repository.insert(movie);
     }
 
