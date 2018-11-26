@@ -48,12 +48,12 @@ public class MovieDetailActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v -> finish());
 
         if (intent.hasExtra(EXTRA_TITLE)) {
-            Objects.requireNonNull(getSupportActionBar()).setTitle(intent.getStringExtra(EXTRA_TITLE));
+            Objects.requireNonNull(getSupportActionBar()).setTitle("");
             movieTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             moviePlot.setText(intent.getStringExtra(EXTRA_OVERVIEW));
 
             Picasso.get().load(MovieAdapter.MOVIE_BASE_URL + intent.getStringExtra(EXTRA_IMAGE))
-                    .placeholder(R.drawable.ic_film)
+                    .placeholder(R.drawable.ic_film_placeholder)
                     .into(imageView);
         }
 
