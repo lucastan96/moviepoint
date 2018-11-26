@@ -85,7 +85,6 @@ public class MovieDetailActivity extends AppCompatActivity {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .build();
-
         notificationManager.notify(1, notification);
     }
 
@@ -96,7 +95,6 @@ public class MovieDetailActivity extends AppCompatActivity {
                 .setContentText(intent.getStringExtra(EXTRA_TITLE))
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .build();
-
         notificationManager.notify(2, notification);
     }
 }
