@@ -10,11 +10,13 @@ import androidx.lifecycle.LiveData;
 public class WatchedRepository {
     private WatchedDoa watchedDoa;
     private LiveData<List<Watched>> allMovies;
+    private LiveData<List<Watched>> viewedMovies;
 
     public WatchedRepository(Application application) {
         WatchedDatabase database = WatchedDatabase.getInstance(application);
         watchedDoa = database.watchedDoa();
-        allMovies = watchedDoa.getAllWatchedMovies();
+        allMovies = watchedDoa.getAllWatchedMovies(false);
+        viewedMovies = watchedDoa.getAllWatchedMovies(true);
     }
 
     public void insert(Watched movie) {
@@ -35,6 +37,10 @@ public class WatchedRepository {
 
     public LiveData<List<Watched>> getAllMovies() {
         return allMovies;
+    }
+
+    public LiveData<List<Watched>> getAllViewedMovies() {
+        return viewedMovies;
     }
 
     private static class InsertMovieAsyncTask extends AsyncTask<Watched, Void, Void> {

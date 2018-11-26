@@ -71,6 +71,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             watched.setTitle(intent.getStringExtra(EXTRA_TITLE));
             watched.setOverview(intent.getStringExtra(EXTRA_OVERVIEW));
             watched.setImagePath(intent.getStringExtra(EXTRA_IMAGE));
+            watched.setWatched(false);
             watchedViewModal.insert(watched);
             Toast.makeText(this, "Added to watchlist", Toast.LENGTH_SHORT).show();
             watchlistNotification();

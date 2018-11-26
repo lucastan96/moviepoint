@@ -13,14 +13,17 @@ public class Watched {
     private String title;
     private String imagePath;
     private String overview;
+    private Boolean watched;
 
     public Watched() {
     }
 
-    public Watched(String title, String imagePath, String overview) {
+    public Watched(int id, String title, String imagePath, String overview, Boolean watched) {
+        this.id = id;
         this.title = title;
         this.imagePath = imagePath;
         this.overview = overview;
+        this.watched = watched;
     }
 
     public int getId() {
@@ -53,5 +56,13 @@ public class Watched {
 
     public void setOverview(String overview) {
         this.overview = overview;
+    }
+
+    public Boolean getWatched() {
+        return watched;
+    }
+
+    public void setWatched(Boolean watched) {
+        this.watched = watched;
     }
 }
