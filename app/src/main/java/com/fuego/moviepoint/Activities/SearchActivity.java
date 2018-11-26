@@ -1,6 +1,7 @@
 package com.fuego.moviepoint.Activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -25,7 +26,7 @@ public class SearchActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     private MovieViewModel movieViewModel;
     private EditText searchField;
-
+    private int orientation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,12 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         searchField = findViewById(R.id.search_edit_text);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        orientation = this.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 5));
+        }
         recyclerView.setHasFixedSize(false);
 
         MovieAdapter adapter = new MovieAdapter();

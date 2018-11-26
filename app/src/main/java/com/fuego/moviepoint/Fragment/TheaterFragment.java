@@ -1,6 +1,7 @@
 package com.fuego.moviepoint.Fragment;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class TheaterFragment extends Fragment {
     private MovieViewModel movieViewModel;
     RecyclerView recyclerView;
+    private int orientation;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,8 +30,12 @@ public class TheaterFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view);
 
-
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        orientation = this.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 5));
+        }
         recyclerView.setHasFixedSize(false);
 
         MovieAdapter adapter = new MovieAdapter();
