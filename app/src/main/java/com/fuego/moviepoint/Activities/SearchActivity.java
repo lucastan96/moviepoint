@@ -41,7 +41,7 @@ public class SearchActivity extends AppCompatActivity {
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(this, 5));
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 6));
         }
         recyclerView.setHasFixedSize(false);
 

@@ -36,7 +36,7 @@ public class WatchlistFragment extends Fragment {
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 5));
+            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 6));
         }
         recyclerView.setHasFixedSize(false);
 
