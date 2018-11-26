@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fuego.moviepoint.R;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -35,8 +36,19 @@ public class WatchedAdapter extends RecyclerView.Adapter<WatchedAdapter.MovieHol
         holder.textViewTitle.setText(currentMovie.getTitle());
 
         Picasso.get().load(MOVIE_BASE_URL + currentMovie.getImagePath())
-                .placeholder(R.drawable.ic_film)
-                .into(holder.textViewImagePath);
+                .placeholder(R.drawable.ic_film_placeholder)
+                .into(holder.textViewImagePath, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        holder.textViewImagePath.setAlpha(0f);
+                        holder.textViewImagePath.animate().setDuration(200).alpha(1f).start();
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
     }
 
     @Override
