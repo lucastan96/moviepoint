@@ -1,5 +1,6 @@
 package com.fuego.moviepoint.Activities;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -17,7 +18,12 @@ import java.util.Objects;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.ViewModelProviders;
+
+import static com.fuego.moviepoint.App.CHANNEL_1_ID;
+import static com.fuego.moviepoint.App.CHANNEL_2_ID;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
@@ -29,6 +35,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private FloatingActionButton floatingActionButton;
     private TextView moviePlot, movieTitle;
     private ImageView imageView;
+    Intent intent;
+    private NotificationManagerCompat notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +44,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_detail);
 
         watchedViewModal = ViewModelProviders.of(this).get(WatchedViewModal.class);
+        notificationManager = NotificationManagerCompat.from(this);
 
-        Intent intent = getIntent();
+        intent = getIntent();
         Toolbar toolbar = findViewById(R.id.toolbar);
         moviePlot = findViewById(R.id.movie_plot);
         movieTitle = findViewById(R.id.movie_title);
@@ -64,6 +73,28 @@ public class MovieDetailActivity extends AppCompatActivity {
             watched.setImagePath(intent.getStringExtra(EXTRA_IMAGE));
             watchedViewModal.insert(watched);
             Toast.makeText(this, "Added to watchlist", Toast.LENGTH_SHORT).show();
+            watchlistNotification();
         });
+    }
+
+    public void watchlistNotification() {
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.ic_film)
+                .setContentTitle("Added new movie to watch list")
+                .setContentText(intent.getStringExtra(EXTRA_TITLE))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .build();
+        notificationManager.notify(1, notification);
+    }
+
+    public void watchedNotification() {
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
+                .setSmallIcon(R.drawable.ic_film)
+                .setContentTitle("Added new movie to watched")
+                .setContentText(intent.getStringExtra(EXTRA_TITLE))
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .build();
+        notificationManager.notify(2, notification);
     }
 }

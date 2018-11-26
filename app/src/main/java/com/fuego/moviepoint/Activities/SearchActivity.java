@@ -70,7 +70,6 @@ public class SearchActivity extends AppCompatActivity {
                     new FetchMovies(searchField.getText().toString()).execute();
                 }
             }
-
             @Override
             public void afterTextChanged(Editable s) {
             }
