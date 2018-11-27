@@ -2,7 +2,6 @@ package com.fuego.moviepoint.Activities;
 
 import android.os.Bundle;
 
-import com.fuego.moviepoint.Fragment.SettingsFragment;
 import com.fuego.moviepoint.R;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +18,5 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Settings");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_settings, new SettingsFragment()).commit();
     }
 }
