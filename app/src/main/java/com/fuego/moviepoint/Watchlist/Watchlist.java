@@ -4,7 +4,7 @@ package com.fuego.moviepoint.Watchlist;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "watched_table")
+@Entity(tableName = "watchlist_table")
 public class Watchlist {
 
     @PrimaryKey(autoGenerate = true)

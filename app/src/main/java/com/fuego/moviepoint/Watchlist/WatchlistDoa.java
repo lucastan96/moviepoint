@@ -21,9 +21,9 @@ public interface WatchlistDoa {
     @Delete
     void delete(Watchlist movie);
 
-    @Query("DELETE FROM Watchlist")
+    @Query("DELETE FROM watchlist_table")
     void deleteAllWatchedMovies();
 
-    @Query("SELECT * FROM Watchlist WHERE watched = :viewed")
+    @Query("SELECT * FROM watchlist_table WHERE watched = :viewed")
     LiveData<List<Watchlist>> getAllWatchedMovies(Boolean viewed);
 }

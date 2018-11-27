@@ -3,7 +3,6 @@ package com.fuego.moviepoint.Activities;
 import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -69,8 +68,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             Objects.requireNonNull(getSupportActionBar()).setTitle("");
             movieTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             moviePlot.setText(intent.getStringExtra(EXTRA_OVERVIEW));
-//            setReleaseDate();
-            Log.d(TAG, "onCreate: " + intent.getStringExtra(EXTRA_DATE));
+            setReleaseDate();
             if (!intent.getExtras().getBoolean(EXTRA_ADULT)) {
                 movieAdult.setVisibility(View.GONE);
             }
@@ -85,6 +83,8 @@ public class MovieDetailActivity extends AppCompatActivity {
             watchlist.setTitle(intent.getStringExtra(EXTRA_TITLE));
             watchlist.setOverview(intent.getStringExtra(EXTRA_OVERVIEW));
             watchlist.setImagePath(intent.getStringExtra(EXTRA_IMAGE));
+            watchlist.setDate(intent.getStringExtra(EXTRA_DATE));
+            watchlist.setAdult(intent.getExtras().getBoolean(EXTRA_ADULT));
             watchlist.setWatched(false);
             mWatchlistViewModal.insert(watchlist);
             watchlistNotification();
@@ -95,6 +95,8 @@ public class MovieDetailActivity extends AppCompatActivity {
             watchlist.setTitle(intent.getStringExtra(EXTRA_TITLE));
             watchlist.setOverview(intent.getStringExtra(EXTRA_OVERVIEW));
             watchlist.setImagePath(intent.getStringExtra(EXTRA_IMAGE));
+            watchlist.setDate(intent.getStringExtra(EXTRA_DATE));
+            watchlist.setAdult(intent.getExtras().getBoolean(EXTRA_ADULT));
             watchlist.setWatched(true);
             mWatchlistViewModal.insert(watchlist);
             watchedNotification();

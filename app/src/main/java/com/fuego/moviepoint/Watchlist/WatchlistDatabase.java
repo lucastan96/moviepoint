@@ -22,7 +22,7 @@ public abstract class WatchlistDatabase extends RoomDatabase {
     public static synchronized WatchlistDatabase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    WatchlistDatabase.class, "watched_database")
+                    WatchlistDatabase.class, "watchlist_database")
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build();
