@@ -43,7 +43,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private WatchlistViewModal mWatchlistViewModal;
     private FloatingActionButton watchlistFab, historyFab;
-    private TextView movieTitle, movieReleaseDate, movieRuntime, movieStatus, movieTagline, moviePlot, movieGenre;
+    private TextView movieTitle, movieReleaseDate, movieRuntime, movieStatus, movieTagline, moviePlot, movieGenreTitle, movieGenre;
     private ImageView imageView;
     Intent intent;
     private NotificationManagerCompat notificationManager;
@@ -65,6 +65,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         movieStatus = findViewById(R.id.movie_status);
         movieTagline = findViewById(R.id.movie_tagline);
         moviePlot = findViewById(R.id.movie_plot);
+        movieGenreTitle = findViewById(R.id.movie_genre_title);
         movieGenre = findViewById(R.id.movie_genre);
 
         imageView = findViewById(R.id.movie_poster);
@@ -185,22 +186,23 @@ public class MovieDetailActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if (runtime == 0) {
-                movieRuntime.setVisibility(View.GONE);
-            } else {
+            if (runtime != 0) {
+                movieRuntime.setVisibility(View.VISIBLE);
                 movieRuntime.setText(runtime + " Minutes");
             }
-            if (status == null || status.length() == 0) {
-                movieStatus.setVisibility(View.GONE);
-            } else {
+            if (status != null) {
+                movieStatus.setVisibility(View.VISIBLE);
                 movieStatus.setText(status);
             }
-            if (tagline == null || tagline.length() == 0) {
-                movieTagline.setVisibility(View.GONE);
-            } else {
+            if (tagline != null) {
+                movieTagline.setVisibility(View.VISIBLE);
                 movieTagline.setText(tagline);
             }
-            movieGenre.setText(genre);
+            if (genre.length() != 0) {
+                movieGenreTitle.setVisibility(View.VISIBLE);
+                movieGenre.setVisibility(View.VISIBLE);
+                movieGenre.setText(genre);
+            }
         }
     }
 }
