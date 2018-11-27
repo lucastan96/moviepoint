@@ -4,16 +4,21 @@ import android.app.Notification;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fuego.moviepoint.Movies.MovieAdapter;
 import com.fuego.moviepoint.R;
+import com.fuego.moviepoint.Utilities.NetworkUtils;
 import com.fuego.moviepoint.Watchlist.Watchlist;
 import com.fuego.moviepoint.Watchlist.WatchlistViewModal;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormatSymbols;
 import java.util.Objects;
@@ -38,7 +43,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private WatchlistViewModal mWatchlistViewModal;
     private FloatingActionButton watchlistFab, historyFab;
-    private TextView moviePlot, movieTitle, movieReleaseDate, movieAdult;
+    private TextView movieTitle, movieReleaseDate, movieRuntime, movieStatus, movieTagline, moviePlot, movieGenre;
     private ImageView imageView;
     Intent intent;
     private NotificationManagerCompat notificationManager;
@@ -53,9 +58,15 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         intent = getIntent();
         Toolbar toolbar = findViewById(R.id.toolbar);
-        moviePlot = findViewById(R.id.movie_plot);
+
         movieTitle = findViewById(R.id.movie_title);
         movieReleaseDate = findViewById(R.id.movie_release_date);
+        movieRuntime = findViewById(R.id.movie_runtime);
+        movieStatus = findViewById(R.id.movie_status);
+        movieTagline = findViewById(R.id.movie_tagline);
+        moviePlot = findViewById(R.id.movie_plot);
+        movieGenre = findViewById(R.id.movie_genre);
+
         imageView = findViewById(R.id.movie_poster);
         watchlistFab = findViewById(R.id.fab_watchlist);
         historyFab = findViewById(R.id.fab_history);
@@ -78,6 +89,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         watchlistFab.setOnClickListener(v -> {
             Watchlist watchlist = new Watchlist();
+            watchlist.setTmdbId(intent.getExtras().getInt(EXTRA_TMDBID));
             watchlist.setTitle(intent.getStringExtra(EXTRA_TITLE));
             watchlist.setOverview(intent.getStringExtra(EXTRA_OVERVIEW));
             watchlist.setImagePath(intent.getStringExtra(EXTRA_IMAGE));
@@ -89,6 +101,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         historyFab.setOnClickListener(v -> {
             Watchlist watchlist = new Watchlist();
+            watchlist.setTmdbId(intent.getExtras().getInt(EXTRA_TMDBID));
             watchlist.setTitle(intent.getStringExtra(EXTRA_TITLE));
             watchlist.setOverview(intent.getStringExtra(EXTRA_OVERVIEW));
             watchlist.setImagePath(intent.getStringExtra(EXTRA_IMAGE));
@@ -103,11 +116,11 @@ public class MovieDetailActivity extends AppCompatActivity {
         String releaseDate = intent.getStringExtra(EXTRA_DATE);
         if (releaseDate.length() != 0) {
             int year = Integer.parseInt(intent.getStringExtra(EXTRA_DATE).substring(0, 4));
-            String month = new DateFormatSymbols().getMonths()[Integer.parseInt(intent.getStringExtra(EXTRA_DATE).substring(5, 7))];
+            String month = new DateFormatSymbols().getMonths()[Integer.parseInt(intent.getStringExtra(EXTRA_DATE).substring(5, 7)) - 1];
             int day = Integer.parseInt(intent.getStringExtra(EXTRA_DATE).substring(8, 10));
             movieReleaseDate.setText(month + " " + day + ", " + year);
         } else {
-            movieReleaseDate.setText("TBA");
+            movieReleaseDate.setText("Release Date TBA");
         }
     }
 
@@ -133,9 +146,15 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     public class FetchMovieById extends AsyncTask<Void, Void, Void> {
-        final private String API_KEY = String.valueOf(R.string.api_key);
-        String searchQuery;
+        final private String API_KEY = "8792d844a767cde129ca36235f60093c";
+        String url;
         private int tmdbId;
+
+        JSONObject movieDetails;
+
+        private int runtime;
+        private String status, tagline, genre = "";
+        private JSONArray genreArray;
 
         public FetchMovieById(int tmdbId) {
             this.tmdbId = tmdbId;
@@ -143,10 +162,45 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            searchQuery = " https://api.themoviedb.org/3/movie/" + tmdbId + "?api_key=" + API_KEY + "&language=en-US";
-            Log.d(TAG, "doInBackground: " + searchQuery);
-//            searchedMovies = NetworkUtils.fetchSearchData(searchQuery);
+            url = "https://api.themoviedb.org/3/movie/" + tmdbId + "?api_key=" + API_KEY + "&language=en-US";
+            movieDetails = NetworkUtils.fetchMovieDetails(url);
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void voids) {
+            super.onPostExecute(voids);
+            try {
+                runtime = movieDetails.getInt("runtime");
+                status = movieDetails.getString("status");
+                tagline = movieDetails.getString("tagline");
+                genreArray = movieDetails.getJSONArray("genres");
+                for (int i = 0; i < genreArray.length(); i++) {
+                    genre += genreArray.getJSONObject(i).getString("name");
+                    if (i + 1 != genreArray.length()) {
+                        genre += ", ";
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            if (runtime == 0) {
+                movieRuntime.setVisibility(View.GONE);
+            } else {
+                movieRuntime.setText(runtime + " Minutes");
+            }
+            if (status == null || status.length() == 0) {
+                movieStatus.setVisibility(View.GONE);
+            } else {
+                movieStatus.setText(status);
+            }
+            if (tagline == null || tagline.length() == 0) {
+                movieTagline.setVisibility(View.GONE);
+            } else {
+                movieTagline.setText(tagline);
+            }
+            movieGenre.setText(genre);
         }
     }
 }

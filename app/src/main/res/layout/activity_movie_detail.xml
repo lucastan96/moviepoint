@@ -35,6 +35,23 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/movie_tagline"
+                android:layout_width="0dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:text="Tagline"
+                android:textAlignment="textStart"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/movie_plot_title" />
+
+            <TextView
                 android:id="@+id/movie_plot_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -57,21 +74,36 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="20dp"
                 android:textAlignment="textStart"
                 android:textColor="@android:color/white"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/movie_plot_title" />
+                app:layout_constraintTop_toBottomOf="@+id/movie_tagline" />
+
+            <TextView
+                android:id="@+id/movie_genre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:textAlignment="textStart"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/movie_genre_title" />
 
             <TextView
                 android:id="@+id/movie_cast_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="20dp"
                 android:text="Cast"
                 android:textAlignment="viewStart"
@@ -81,6 +113,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/movie_plot" />
+
+            <TextView
+                android:id="@+id/movie_genre_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                android:text="Genre"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/movie_cast_title" />
 
             <ImageView
                 android:id="@+id/movie_poster"
@@ -117,7 +166,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/movie_title" />
 
             <TextView
-                android:id="@+id/movie_adult"
+                android:id="@+id/movie_runtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="... Minutes"
+                android:textColor="@android:color/white"
+                app:layout_constraintStart_toEndOf="@+id/movie_poster"
+                app:layout_constraintTop_toBottomOf="@+id/movie_release_date" />
+
+            <TextView
+                android:id="@+id/movie_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -125,13 +184,13 @@
                 android:background="@android:color/white"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
-                android:text="Explicit"
+                android:text="..."
                 android:textAllCaps="true"
                 android:textColor="@android:color/black"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/movie_poster"
-                app:layout_constraintTop_toBottomOf="@+id/movie_release_date" />
+                app:layout_constraintTop_toBottomOf="@+id/movie_runtime" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

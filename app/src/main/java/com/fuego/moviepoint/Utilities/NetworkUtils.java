@@ -56,6 +56,22 @@ public class NetworkUtils {
         return movies;
     }
 
+    public static JSONObject fetchMovieDetails(String url) {
+        JSONObject movieDetails = null;
+        try {
+            URL new_url = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) new_url.openConnection();
+            connection.connect();
+
+            InputStream inputStream = connection.getInputStream();
+            movieDetails = new JSONObject(IOUtils.toString(inputStream));
+            inputStream.close();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return movieDetails;
+    }
+
     public static void parseSearchJson(String data, ArrayList<SearchedMovies> list) {
         try {
             JSONObject mainObject = new JSONObject(data);
