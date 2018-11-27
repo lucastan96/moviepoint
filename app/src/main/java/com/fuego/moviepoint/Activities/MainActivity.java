@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public class FetchMovies extends AsyncTask<Void, Void, Void> {
-        final private String API_KEY = "8792d844a767cde129ca36235f60093c";
+        final private String API_KEY = String.valueOf(R.string.api_key);
         private String savedRegion = mPrefs.getString(getString(R.string.region), getResources().getString(R.string.default_region));
 
         String popularMovies;

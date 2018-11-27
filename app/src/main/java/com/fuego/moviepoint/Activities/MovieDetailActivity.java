@@ -2,7 +2,9 @@ package com.fuego.moviepoint.Activities;
 
 import android.app.Notification;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -62,6 +64,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v -> finish());
 
         if (intent.hasExtra(EXTRA_TITLE)) {
+            new FetchMovieById(intent.getExtras().getInt(EXTRA_TMDBID)).execute();
+
             Objects.requireNonNull(getSupportActionBar()).setTitle("");
             movieTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             moviePlot.setText(intent.getStringExtra(EXTRA_OVERVIEW));
@@ -96,10 +100,15 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void setReleaseDate() {
-        int year = Integer.parseInt(intent.getStringExtra(EXTRA_DATE).substring(0, 4));
-        String month = new DateFormatSymbols().getMonths()[Integer.parseInt(intent.getStringExtra(EXTRA_DATE).substring(5, 7))];
-        int day = Integer.parseInt(intent.getStringExtra(EXTRA_DATE).substring(8, 10));
-        movieReleaseDate.setText(month + " " + day + ", " + year);
+        String releaseDate = intent.getStringExtra(EXTRA_DATE);
+        if (releaseDate.length() != 0) {
+            int year = Integer.parseInt(intent.getStringExtra(EXTRA_DATE).substring(0, 4));
+            String month = new DateFormatSymbols().getMonths()[Integer.parseInt(intent.getStringExtra(EXTRA_DATE).substring(5, 7))];
+            int day = Integer.parseInt(intent.getStringExtra(EXTRA_DATE).substring(8, 10));
+            movieReleaseDate.setText(month + " " + day + ", " + year);
+        } else {
+            movieReleaseDate.setText("TBA");
+        }
     }
 
     public void watchlistNotification() {
@@ -121,5 +130,23 @@ public class MovieDetailActivity extends AppCompatActivity {
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .build();
         notificationManager.notify(2, notification);
+    }
+
+    public class FetchMovieById extends AsyncTask<Void, Void, Void> {
+        final private String API_KEY = String.valueOf(R.string.api_key);
+        String searchQuery;
+        private int tmdbId;
+
+        public FetchMovieById(int tmdbId) {
+            this.tmdbId = tmdbId;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            searchQuery = " https://api.themoviedb.org/3/movie/" + tmdbId + "?api_key=" + API_KEY + "&language=en-US";
+            Log.d(TAG, "doInBackground: " + searchQuery);
+//            searchedMovies = NetworkUtils.fetchSearchData(searchQuery);
+            return null;
+        }
     }
 }
