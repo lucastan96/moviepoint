@@ -9,17 +9,21 @@ public class Movie {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    private int tmdbId;
     private String title;
     private String imagePath;
     private String overview;
+    private String date;
+    private Boolean adult;
 
-    public Movie() {
-    }
-
-    public Movie(String title, String imagePath, String overview) {
+    public Movie(int id, int tmdbId, String title, String imagePath, String overview, String date, Boolean adult) {
+        this.id = id;
+        this.tmdbId = tmdbId;
         this.title = title;
         this.imagePath = imagePath;
         this.overview = overview;
+        this.date = date;
+        this.adult = adult;
     }
 
     public int getId() {
@@ -28,6 +32,13 @@ public class Movie {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Movie() {
+    }
+
+    public int getTmdbId() {
+        return tmdbId;
     }
 
     public String getTitle() {
@@ -54,4 +65,23 @@ public class Movie {
         this.overview = overview;
     }
 
+    public void setTmdbId(int tmdbId) {
+        this.tmdbId = tmdbId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Boolean getAdult() {
+        return adult;
+    }
+
+    public void setAdult(Boolean adult) {
+        this.adult = adult;
+    }
 }

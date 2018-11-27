@@ -82,9 +82,12 @@ public class NetworkUtils {
             for (int i = 0; i < resArray.length(); i++) {
                 JSONObject jsonObject = resArray.getJSONObject(i);
                 Movie movie = new Movie();
+                movie.setTmdbId(jsonObject.getInt("id"));
                 movie.setTitle(jsonObject.getString("title"));
                 movie.setImagePath(jsonObject.getString("poster_path"));
                 movie.setOverview(jsonObject.getString("overview"));
+                movie.setDate(jsonObject.getString("release_date"));
+                movie.setAdult(jsonObject.getBoolean("adult"));
                 list.add(movie);
             }
         } catch (JSONException e) {
