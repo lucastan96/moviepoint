@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 
 import com.fuego.moviepoint.Activities.MovieDetailActivity;
 import com.fuego.moviepoint.R;
-import com.fuego.moviepoint.Watchlist.WatchedAdapter;
-import com.fuego.moviepoint.Watchlist.WatchedViewModal;
+import com.fuego.moviepoint.Watchlist.WatchlistAdapter;
+import com.fuego.moviepoint.Watchlist.WatchlistViewModal;
 
 import java.util.Objects;
 
@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class WatchlistFragment extends Fragment {
 
     RecyclerView recyclerView;
-    private WatchedViewModal watchedViewModal;
+    private WatchlistViewModal mWatchlistViewModal;
     private int orientation;
 
     @Override
@@ -40,17 +40,19 @@ public class WatchlistFragment extends Fragment {
         }
         recyclerView.setHasFixedSize(false);
 
-        WatchedAdapter adapter = new WatchedAdapter();
+        WatchlistAdapter adapter = new WatchlistAdapter();
         recyclerView.setAdapter(adapter);
 
-        watchedViewModal = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(WatchedViewModal.class);
-        watchedViewModal.getAllMovies().observe(this, adapter::setMovies);
+        mWatchlistViewModal = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(WatchlistViewModal.class);
+        mWatchlistViewModal.getAllMovies().observe(this, adapter::setMovies);
 
         adapter.setOnItemClickListener(movie -> {
             Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+            intent.putExtra(MovieDetailActivity.EXTRA_TMDBID, movie.getTmdbId());
             intent.putExtra(MovieDetailActivity.EXTRA_TITLE, movie.getTitle());
             intent.putExtra(MovieDetailActivity.EXTRA_IMAGE, movie.getImagePath());
             intent.putExtra(MovieDetailActivity.EXTRA_OVERVIEW, movie.getOverview());
+            intent.putExtra(MovieDetailActivity.EXTRA_DATE, movie.getDate());
             startActivity(intent);
         });
 

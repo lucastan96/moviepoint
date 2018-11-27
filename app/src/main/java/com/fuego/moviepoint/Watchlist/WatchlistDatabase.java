@@ -8,10 +8,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = Watched.class, version = 1)
-public abstract class WatchedDatabase extends RoomDatabase {
+@Database(entities = Watchlist.class, version = 1)
+public abstract class WatchlistDatabase extends RoomDatabase {
 
-    private static WatchedDatabase instance;
+    private static WatchlistDatabase instance;
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -19,10 +19,10 @@ public abstract class WatchedDatabase extends RoomDatabase {
         }
     };
 
-    public static synchronized WatchedDatabase getInstance(Context context) {
+    public static synchronized WatchlistDatabase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    WatchedDatabase.class, "watched_database")
+                    WatchlistDatabase.class, "watchlist_database")
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build();
@@ -30,5 +30,5 @@ public abstract class WatchedDatabase extends RoomDatabase {
         return instance;
     }
 
-    public abstract WatchedDoa watchedDoa();
+    public abstract WatchlistDoa watchedDoa();
 }

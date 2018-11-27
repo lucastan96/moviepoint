@@ -33,7 +33,6 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-
         recyclerView = findViewById(R.id.recycler_view);
         searchField = findViewById(R.id.search_edit_text);
 
@@ -55,9 +54,7 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        toolbar.setNavigationOnClickListener(v -> {
-            finish();
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         searchField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -70,6 +67,7 @@ public class SearchActivity extends AppCompatActivity {
                     new FetchMovies(searchField.getText().toString()).execute();
                 }
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -77,9 +75,11 @@ public class SearchActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener(movie -> {
             Intent intent = new Intent(this, MovieDetailActivity.class);
+            intent.putExtra(MovieDetailActivity.EXTRA_TMDBID, movie.getTmdbId());
             intent.putExtra(MovieDetailActivity.EXTRA_TITLE, movie.getTitle());
             intent.putExtra(MovieDetailActivity.EXTRA_IMAGE, movie.getImagePath());
             intent.putExtra(MovieDetailActivity.EXTRA_OVERVIEW, movie.getOverview());
+            intent.putExtra(MovieDetailActivity.EXTRA_DATE, movie.getDate());
             startActivity(intent);
         });
     }

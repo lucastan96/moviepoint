@@ -56,6 +56,22 @@ public class NetworkUtils {
         return movies;
     }
 
+    public static JSONObject fetchMovieDetails(String url) {
+        JSONObject movieDetails = null;
+        try {
+            URL new_url = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) new_url.openConnection();
+            connection.connect();
+
+            InputStream inputStream = connection.getInputStream();
+            movieDetails = new JSONObject(IOUtils.toString(inputStream));
+            inputStream.close();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return movieDetails;
+    }
+
     public static void parseSearchJson(String data, ArrayList<SearchedMovies> list) {
         try {
             JSONObject mainObject = new JSONObject(data);
@@ -63,9 +79,11 @@ public class NetworkUtils {
             for (int i = 0; i < resArray.length(); i++) {
                 JSONObject jsonObject = resArray.getJSONObject(i);
                 SearchedMovies movie = new SearchedMovies();
+                movie.setTmdbId(jsonObject.getInt("id"));
                 movie.setTitle(jsonObject.getString("title"));
                 movie.setImagePath(jsonObject.getString("poster_path"));
                 movie.setOverview(jsonObject.getString("overview"));
+                movie.setDate(jsonObject.getString("release_date"));
                 list.add(movie);
             }
         } catch (JSONException e) {
@@ -82,9 +100,11 @@ public class NetworkUtils {
             for (int i = 0; i < resArray.length(); i++) {
                 JSONObject jsonObject = resArray.getJSONObject(i);
                 Movie movie = new Movie();
+                movie.setTmdbId(jsonObject.getInt("id"));
                 movie.setTitle(jsonObject.getString("title"));
                 movie.setImagePath(jsonObject.getString("poster_path"));
                 movie.setOverview(jsonObject.getString("overview"));
+                movie.setDate(jsonObject.getString("release_date"));
                 list.add(movie);
             }
         } catch (JSONException e) {

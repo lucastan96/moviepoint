@@ -10,17 +10,22 @@ public class SearchedMovies {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    private int tmdbId;
     private String title;
     private String imagePath;
     private String overview;
+    private String date;
 
     public SearchedMovies() {
     }
 
-    public SearchedMovies(String title, String imagePath, String overview) {
+    public SearchedMovies(int id, int tmdbId, String title, String imagePath, String overview, String date) {
+        this.id = id;
+        this.tmdbId = tmdbId;
         this.title = title;
         this.imagePath = imagePath;
         this.overview = overview;
+        this.date = date;
     }
 
     public int getId() {
@@ -29,6 +34,14 @@ public class SearchedMovies {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getTmdbId() {
+        return tmdbId;
+    }
+
+    public void setTmdbId(int tmdbId) {
+        this.tmdbId = tmdbId;
     }
 
     public String getTitle() {
@@ -53,5 +66,13 @@ public class SearchedMovies {
 
     public void setOverview(String overview) {
         this.overview = overview;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
