@@ -16,6 +16,9 @@ public class Movie {
     private String date;
     private Boolean adult;
 
+    public Movie() {
+    }
+
     public Movie(int id, int tmdbId, String title, String imagePath, String overview, String date, Boolean adult) {
         this.id = id;
         this.tmdbId = tmdbId;
@@ -34,11 +37,12 @@ public class Movie {
         this.id = id;
     }
 
-    public Movie() {
-    }
-
     public int getTmdbId() {
         return tmdbId;
+    }
+
+    public void setTmdbId(int tmdbId) {
+        this.tmdbId = tmdbId;
     }
 
     public String getTitle() {
@@ -63,10 +67,6 @@ public class Movie {
 
     public void setOverview(String overview) {
         this.overview = overview;
-    }
-
-    public void setTmdbId(int tmdbId) {
-        this.tmdbId = tmdbId;
     }
 
     public String getDate() {

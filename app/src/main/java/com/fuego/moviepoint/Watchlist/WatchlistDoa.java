@@ -10,20 +10,20 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 @Dao
-public interface WatchedDoa {
+public interface WatchlistDoa {
 
     @Insert
-    void insert(Watched movie);
+    void insert(Watchlist movie);
 
     @Update
-    void update(Watched movie);
+    void update(Watchlist movie);
 
     @Delete
-    void delete(Watched movie);
+    void delete(Watchlist movie);
 
-    @Query("DELETE FROM watched_table")
+    @Query("DELETE FROM Watchlist")
     void deleteAllWatchedMovies();
 
-    @Query("SELECT * FROM watched_table WHERE watched = :viewed")
-    LiveData<List<Watched>> getAllWatchedMovies(Boolean viewed);
+    @Query("SELECT * FROM Watchlist WHERE watched = :viewed")
+    LiveData<List<Watchlist>> getAllWatchedMovies(Boolean viewed);
 }

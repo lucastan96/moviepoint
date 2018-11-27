@@ -16,23 +16,23 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class WatchedAdapter extends RecyclerView.Adapter<WatchedAdapter.MovieHolder> {
+public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MovieHolder> {
 
     public static final String MOVIE_BASE_URL = "https://image.tmdb.org/t/p/w185";
-    private List<Watched> movies = new ArrayList<>();
+    private List<Watchlist> movies = new ArrayList<>();
     private OnItemClickListener listener;
 
     @NonNull
     @Override
-    public WatchedAdapter.MovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public WatchlistAdapter.MovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.movie_item, parent, false);
         return new MovieHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WatchedAdapter.MovieHolder holder, int position) {
-        Watched currentMovie = movies.get(position);
+    public void onBindViewHolder(@NonNull WatchlistAdapter.MovieHolder holder, int position) {
+        Watchlist currentMovie = movies.get(position);
         holder.textViewTitle.setText(currentMovie.getTitle());
 
         Picasso.get().load(MOVIE_BASE_URL + currentMovie.getImagePath())
@@ -56,7 +56,7 @@ public class WatchedAdapter extends RecyclerView.Adapter<WatchedAdapter.MovieHol
         return movies.size();
     }
 
-    public void setMovies(List<Watched> movies) {
+    public void setMovies(List<Watchlist> movies) {
         this.movies = movies;
         notifyDataSetChanged();
     }
@@ -66,7 +66,7 @@ public class WatchedAdapter extends RecyclerView.Adapter<WatchedAdapter.MovieHol
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Watched movie);
+        void onItemClick(Watchlist movie);
     }
 
     class MovieHolder extends RecyclerView.ViewHolder {

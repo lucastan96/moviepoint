@@ -3,14 +3,15 @@ package com.fuego.moviepoint.Activities;
 import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fuego.moviepoint.Movies.MovieAdapter;
 import com.fuego.moviepoint.R;
-import com.fuego.moviepoint.Watchlist.Watched;
-import com.fuego.moviepoint.Watchlist.WatchedViewModal;
+import com.fuego.moviepoint.Watchlist.Watchlist;
+import com.fuego.moviepoint.Watchlist.WatchlistViewModal;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
@@ -27,6 +28,7 @@ import static com.fuego.moviepoint.App.CHANNEL_1_ID;
 import static com.fuego.moviepoint.App.CHANNEL_2_ID;
 
 public class MovieDetailActivity extends AppCompatActivity {
+    private static final String TAG = MovieDetailActivity.class.getSimpleName();
 
     public static final String EXTRA_TMDBID = "com.fuego.moviepoint.Activities.extra.TMDBID";
     public static final String EXTRA_TITLE = "com.fuego.moviepoint.Activities.extra.TITLE";
@@ -35,7 +37,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     public static final String EXTRA_DATE = "com.fuego.moviepoint.Activities.extra.DATE";
     public static final String EXTRA_ADULT = "com.fuego.moviepoint.Activities.extra.ADULT";
 
-    private WatchedViewModal watchedViewModal;
+    private WatchlistViewModal mWatchlistViewModal;
     private FloatingActionButton watchlistFab, historyFab;
     private TextView moviePlot, movieTitle, movieReleaseDate, movieAdult;
     private ImageView imageView;
@@ -47,7 +49,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
-        watchedViewModal = ViewModelProviders.of(this).get(WatchedViewModal.class);
+        mWatchlistViewModal = ViewModelProviders.of(this).get(WatchlistViewModal.class);
         notificationManager = NotificationManagerCompat.from(this);
 
         intent = getIntent();
@@ -67,7 +69,8 @@ public class MovieDetailActivity extends AppCompatActivity {
             Objects.requireNonNull(getSupportActionBar()).setTitle("");
             movieTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             moviePlot.setText(intent.getStringExtra(EXTRA_OVERVIEW));
-            setReleaseDate();
+//            setReleaseDate();
+            Log.d(TAG, "onCreate: " + intent.getStringExtra(EXTRA_DATE));
             if (!intent.getExtras().getBoolean(EXTRA_ADULT)) {
                 movieAdult.setVisibility(View.GONE);
             }
@@ -78,22 +81,22 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
 
         watchlistFab.setOnClickListener(v -> {
-            Watched watched = new Watched();
-            watched.setTitle(intent.getStringExtra(EXTRA_TITLE));
-            watched.setOverview(intent.getStringExtra(EXTRA_OVERVIEW));
-            watched.setImagePath(intent.getStringExtra(EXTRA_IMAGE));
-            watched.setWatched(false);
-            watchedViewModal.insert(watched);
+            Watchlist watchlist = new Watchlist();
+            watchlist.setTitle(intent.getStringExtra(EXTRA_TITLE));
+            watchlist.setOverview(intent.getStringExtra(EXTRA_OVERVIEW));
+            watchlist.setImagePath(intent.getStringExtra(EXTRA_IMAGE));
+            watchlist.setWatched(false);
+            mWatchlistViewModal.insert(watchlist);
             watchlistNotification();
         });
 
         historyFab.setOnClickListener(v -> {
-            Watched watched = new Watched();
-            watched.setTitle(intent.getStringExtra(EXTRA_TITLE));
-            watched.setOverview(intent.getStringExtra(EXTRA_OVERVIEW));
-            watched.setImagePath(intent.getStringExtra(EXTRA_IMAGE));
-            watched.setWatched(true);
-            watchedViewModal.insert(watched);
+            Watchlist watchlist = new Watchlist();
+            watchlist.setTitle(intent.getStringExtra(EXTRA_TITLE));
+            watchlist.setOverview(intent.getStringExtra(EXTRA_OVERVIEW));
+            watchlist.setImagePath(intent.getStringExtra(EXTRA_IMAGE));
+            watchlist.setWatched(true);
+            mWatchlistViewModal.insert(watchlist);
             watchedNotification();
         });
     }

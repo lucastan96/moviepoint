@@ -8,28 +8,28 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-public class WatchedViewModal extends AndroidViewModel {
+public class WatchlistViewModal extends AndroidViewModel {
 
-    private WatchedRepository repository;
-    private LiveData<List<Watched>> allMovies;
-    private LiveData<List<Watched>> viewedMovies;
+    private WatchlistRepository repository;
+    private LiveData<List<Watchlist>> allMovies;
+    private LiveData<List<Watchlist>> viewedMovies;
 
-    public WatchedViewModal(@NonNull Application application) {
+    public WatchlistViewModal(@NonNull Application application) {
         super(application);
-        repository = new WatchedRepository(application);
+        repository = new WatchlistRepository(application);
         allMovies = repository.getAllMovies();
         viewedMovies = repository.getAllViewedMovies();
     }
 
-    public void insert(Watched movie) {
+    public void insert(Watchlist movie) {
         repository.insert(movie);
     }
 
-    public void update(Watched movie) {
+    public void update(Watchlist movie) {
         repository.insert(movie);
     }
 
-    public void delete(Watched movie) {
+    public void delete(Watchlist movie) {
         repository.insert(movie);
     }
 
@@ -37,11 +37,11 @@ public class WatchedViewModal extends AndroidViewModel {
         repository.deleteAllMovies();
     }
 
-    public LiveData<List<Watched>> getAllMovies() {
+    public LiveData<List<Watchlist>> getAllMovies() {
         return allMovies;
     }
 
-    public LiveData<List<Watched>> getAllWatchedMovies() {
+    public LiveData<List<Watchlist>> getAllWatchedMovies() {
         return viewedMovies;
     }
 }

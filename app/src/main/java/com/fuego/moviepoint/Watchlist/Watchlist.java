@@ -5,24 +5,30 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "watched_table")
-public class Watched {
+public class Watchlist {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    private int tmdbId;
     private String title;
     private String imagePath;
     private String overview;
+    private String date;
+    private Boolean adult;
     private Boolean watched;
 
-    public Watched() {
+    public Watchlist() {
     }
 
-    public Watched(int id, String title, String imagePath, String overview, Boolean watched) {
+    public Watchlist(int id, int tmdbId, String title, String imagePath, String overview, String date, Boolean adult, Boolean watched) {
         this.id = id;
+        this.tmdbId = tmdbId;
         this.title = title;
         this.imagePath = imagePath;
         this.overview = overview;
+        this.date = date;
+        this.adult = adult;
         this.watched = watched;
     }
 
@@ -32,6 +38,14 @@ public class Watched {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getTmdbId() {
+        return tmdbId;
+    }
+
+    public void setTmdbId(int tmdbId) {
+        this.tmdbId = tmdbId;
     }
 
     public String getTitle() {
@@ -56,6 +70,22 @@ public class Watched {
 
     public void setOverview(String overview) {
         this.overview = overview;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Boolean getAdult() {
+        return adult;
+    }
+
+    public void setAdult(Boolean adult) {
+        this.adult = adult;
     }
 
     public Boolean getWatched() {
