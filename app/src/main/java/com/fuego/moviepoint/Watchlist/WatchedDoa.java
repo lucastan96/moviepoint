@@ -24,6 +24,6 @@ public interface WatchedDoa {
     @Query("DELETE FROM watched_table")
     void deleteAllWatchedMovies();
 
-    @Query("SELECT * FROM watched_table")
-    LiveData<List<Watched>> getAllWatchedMovies();
+    @Query("SELECT * FROM watched_table WHERE watched = :viewed")
+    LiveData<List<Watched>> getAllWatchedMovies(Boolean viewed);
 }
