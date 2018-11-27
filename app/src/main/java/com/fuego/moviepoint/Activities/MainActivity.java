@@ -29,10 +29,14 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+    private static final String TAG = MainActivity.class.getSimpleName();
+
     private MovieViewModel movieViewModel;
     ProgressBar progressBar;
     SwipeRefreshLayout swipeRefreshLayout;
     SharedPreferences mPrefs;
+    Fragment currentFragment;
+    BottomNavigationView navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +48,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         progressBar = findViewById(R.id.progressBar);
         swipeRefreshLayout = findViewById(R.id.swipeContainer);
 
-        BottomNavigationView navigation = findViewById(R.id.nav_bottom);
+        navigation = findViewById(R.id.nav_bottom);
         navigation.setOnNavigationItemSelectedListener(this);
 
-        loadFragment(new TheaterFragment());
+        currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (currentFragment == null) {
+            loadFragment(new TheaterFragment());
+        }
 
         movieViewModel.deleteAllMovies();
         new FetchMovies().execute();
@@ -57,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
             swipeRefreshLayout.setRefreshing(true);
             if (currentFragment instanceof TheaterFragment) {
                 movieViewModel.deleteAllMovies();
@@ -82,15 +89,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
+        currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
         switch (item.getItemId()) {
             case R.id.nav_bottom_1:
-                fragment = new TheaterFragment();
+                if (!(currentFragment instanceof TheaterFragment)) {
+                    fragment = new TheaterFragment();
+                }
                 break;
             case R.id.nav_bottom_2:
-                fragment = new WatchlistFragment();
+                if (!(currentFragment instanceof WatchlistFragment)) {
+                    fragment = new WatchlistFragment();
+                }
                 break;
             case R.id.nav_bottom_3:
-                fragment = new HistoryFragment();
+                if (!(currentFragment instanceof HistoryFragment)) {
+                    fragment = new HistoryFragment();
+                }
                 break;
         }
         return loadFragment(fragment);

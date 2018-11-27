@@ -24,8 +24,8 @@
         android:id="@+id/moviepoint_icon"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:srcCompat="@drawable/ic_moviepoint_icon" />
@@ -34,69 +34,70 @@
         android:id="@+id/moviepoint_logo"
         android:layout_width="240dp"
         android:layout_height="70dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moviepoint_icon"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/moviepoint_icon"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:srcCompat="@drawable/ic_moviepoint_logo" />
 
     <TextView
         android:id="@+id/moviepoint_rights"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
+        android:layout_marginStart="145dp"
         android:text="All Rights Reserved."
         android:textColor="@color/colorPrimaryLighter"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moviepoint_about" />
 
     <TextView
         android:id="@+id/moviepoint_about"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="24dp"
         android:text="A Computing Mobile Development Project."
         android:textColor="@color/colorPrimaryLighter"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/moviepoint_rights"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moviepoint_creator_2" />
 
     <TextView
         android:id="@+id/moviepoint_creator_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginStart="145dp"
         android:text="Lucas Tan"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/moviepoint_about"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moviepoint_creator_1" />
 
     <TextView
         android:id="@+id/moviepoint_creator_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="145dp"
         android:text="Sean Joyce"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/moviepoint_creator_2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moviepoint_creator_title" />
 
     <TextView
         android:id="@+id/moviepoint_creator_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="24dp"
         android:text="Team"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/moviepoint_creator_1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moviepoint_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
