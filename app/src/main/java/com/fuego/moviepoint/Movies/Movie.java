@@ -14,19 +14,17 @@ public class Movie {
     private String imagePath;
     private String overview;
     private String date;
-    private Boolean adult;
 
     public Movie() {
     }
 
-    public Movie(int id, int tmdbId, String title, String imagePath, String overview, String date, Boolean adult) {
+    public Movie(int id, int tmdbId, String title, String imagePath, String overview, String date) {
         this.id = id;
         this.tmdbId = tmdbId;
         this.title = title;
         this.imagePath = imagePath;
         this.overview = overview;
         this.date = date;
-        this.adult = adult;
     }
 
     public int getId() {
@@ -75,13 +73,5 @@ public class Movie {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public Boolean getAdult() {
-        return adult;
-    }
-
-    public void setAdult(Boolean adult) {
-        this.adult = adult;
     }
 }

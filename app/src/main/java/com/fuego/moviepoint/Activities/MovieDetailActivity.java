@@ -3,7 +3,6 @@ package com.fuego.moviepoint.Activities;
 import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,7 +33,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     public static final String EXTRA_IMAGE = "com.fuego.moviepoint.Activities.extra.IMAGE";
     public static final String EXTRA_OVERVIEW = "com.fuego.moviepoint.Activities.extra.OVERVIEW";
     public static final String EXTRA_DATE = "com.fuego.moviepoint.Activities.extra.DATE";
-    public static final String EXTRA_ADULT = "com.fuego.moviepoint.Activities.extra.ADULT";
 
     private WatchlistViewModal mWatchlistViewModal;
     private FloatingActionButton watchlistFab, historyFab;
@@ -56,7 +54,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         moviePlot = findViewById(R.id.movie_plot);
         movieTitle = findViewById(R.id.movie_title);
         movieReleaseDate = findViewById(R.id.movie_release_date);
-        movieAdult = findViewById(R.id.movie_adult);
         imageView = findViewById(R.id.movie_poster);
         watchlistFab = findViewById(R.id.fab_watchlist);
         historyFab = findViewById(R.id.fab_history);
@@ -69,9 +66,6 @@ public class MovieDetailActivity extends AppCompatActivity {
             movieTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             moviePlot.setText(intent.getStringExtra(EXTRA_OVERVIEW));
             setReleaseDate();
-            if (!intent.getExtras().getBoolean(EXTRA_ADULT)) {
-                movieAdult.setVisibility(View.GONE);
-            }
 
             Picasso.get().load(MovieAdapter.MOVIE_BASE_URL + intent.getStringExtra(EXTRA_IMAGE))
                     .placeholder(R.drawable.ic_film_placeholder)
@@ -84,7 +78,6 @@ public class MovieDetailActivity extends AppCompatActivity {
             watchlist.setOverview(intent.getStringExtra(EXTRA_OVERVIEW));
             watchlist.setImagePath(intent.getStringExtra(EXTRA_IMAGE));
             watchlist.setDate(intent.getStringExtra(EXTRA_DATE));
-            watchlist.setAdult(intent.getExtras().getBoolean(EXTRA_ADULT));
             watchlist.setWatched(false);
             mWatchlistViewModal.insert(watchlist);
             watchlistNotification();
@@ -96,7 +89,6 @@ public class MovieDetailActivity extends AppCompatActivity {
             watchlist.setOverview(intent.getStringExtra(EXTRA_OVERVIEW));
             watchlist.setImagePath(intent.getStringExtra(EXTRA_IMAGE));
             watchlist.setDate(intent.getStringExtra(EXTRA_DATE));
-            watchlist.setAdult(intent.getExtras().getBoolean(EXTRA_ADULT));
             watchlist.setWatched(true);
             mWatchlistViewModal.insert(watchlist);
             watchedNotification();

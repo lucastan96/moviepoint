@@ -51,8 +51,6 @@ public class TheaterFragment extends Fragment {
             intent.putExtra(MovieDetailActivity.EXTRA_IMAGE, movie.getImagePath());
             intent.putExtra(MovieDetailActivity.EXTRA_OVERVIEW, movie.getOverview());
             intent.putExtra(MovieDetailActivity.EXTRA_DATE, movie.getDate());
-            intent.putExtra(MovieDetailActivity.EXTRA_ADULT, movie.getAdult());
-
             startActivity(intent);
         });
 

@@ -15,20 +15,18 @@ public class Watchlist {
     private String imagePath;
     private String overview;
     private String date;
-    private Boolean adult;
     private Boolean watched;
 
     public Watchlist() {
     }
 
-    public Watchlist(int id, int tmdbId, String title, String imagePath, String overview, String date, Boolean adult, Boolean watched) {
+    public Watchlist(int id, int tmdbId, String title, String imagePath, String overview, String date, Boolean watched) {
         this.id = id;
         this.tmdbId = tmdbId;
         this.title = title;
         this.imagePath = imagePath;
         this.overview = overview;
         this.date = date;
-        this.adult = adult;
         this.watched = watched;
     }
 
@@ -78,14 +76,6 @@ public class Watchlist {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public Boolean getAdult() {
-        return adult;
-    }
-
-    public void setAdult(Boolean adult) {
-        this.adult = adult;
     }
 
     public Boolean getWatched() {
