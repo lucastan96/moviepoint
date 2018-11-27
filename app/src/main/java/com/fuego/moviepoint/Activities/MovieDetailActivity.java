@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fuego.moviepoint.Movies.MovieAdapter;
 import com.fuego.moviepoint.R;
@@ -32,7 +31,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     public static final String EXTRA_OVERVIEW = "com.fuego.moviepoint.Activities.extra.OVERVIEW";
 
     private WatchedViewModal watchedViewModal;
-    private FloatingActionButton floatingActionButton, historyFab;
+    private FloatingActionButton watchlistFab, historyFab;
     private TextView moviePlot, movieTitle;
     private ImageView imageView;
     Intent intent;
@@ -51,8 +50,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         moviePlot = findViewById(R.id.movie_plot);
         movieTitle = findViewById(R.id.movie_title);
         imageView = findViewById(R.id.movie_poster);
-        floatingActionButton = findViewById(R.id.watch_movie);
-        historyFab = findViewById(R.id.floatingActionButton);
+        watchlistFab = findViewById(R.id.fab_watchlist);
+        historyFab = findViewById(R.id.fab_history);
 
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
@@ -67,14 +66,13 @@ public class MovieDetailActivity extends AppCompatActivity {
                     .into(imageView);
         }
 
-        floatingActionButton.setOnClickListener(v -> {
+        watchlistFab.setOnClickListener(v -> {
             Watched watched = new Watched();
             watched.setTitle(intent.getStringExtra(EXTRA_TITLE));
             watched.setOverview(intent.getStringExtra(EXTRA_OVERVIEW));
             watched.setImagePath(intent.getStringExtra(EXTRA_IMAGE));
             watched.setWatched(false);
             watchedViewModal.insert(watched);
-            Toast.makeText(this, "Added to watchlist", Toast.LENGTH_SHORT).show();
             watchlistNotification();
         });
 
@@ -85,7 +83,6 @@ public class MovieDetailActivity extends AppCompatActivity {
             watched.setImagePath(intent.getStringExtra(EXTRA_IMAGE));
             watched.setWatched(true);
             watchedViewModal.insert(watched);
-            Toast.makeText(this, "Added to watchlist", Toast.LENGTH_SHORT).show();
             watchedNotification();
         });
     }
@@ -93,7 +90,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     public void watchlistNotification() {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ic_film)
-                .setContentTitle("Added new movie to watch list")
+                .setContentTitle("Added new movie to watchlist")
                 .setContentText(intent.getStringExtra(EXTRA_TITLE))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
@@ -104,7 +101,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     public void watchedNotification() {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
                 .setSmallIcon(R.drawable.ic_film)
-                .setContentTitle("Added new movie to watched")
+                .setContentTitle("Added new movie to history")
                 .setContentText(intent.getStringExtra(EXTRA_TITLE))
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .build();
