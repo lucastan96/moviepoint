@@ -201,6 +201,18 @@
                 android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@+id/movie_poster"
                 app:layout_constraintTop_toBottomOf="@+id/movie_runtime" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/movie_cast"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/movie_cast_title"
+                tools:listitem="@layout/cast_item" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
@@ -230,4 +242,5 @@
         app:layout_constraintBottom_toTopOf="@+id/fab_watchlist"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_history" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

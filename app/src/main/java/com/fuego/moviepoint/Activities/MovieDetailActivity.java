@@ -4,10 +4,13 @@ import android.app.Notification;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.fuego.moviepoint.Cast.Cast;
+import com.fuego.moviepoint.Cast.CastAdapter;
 import com.fuego.moviepoint.Movies.MovieAdapter;
 import com.fuego.moviepoint.R;
 import com.fuego.moviepoint.Utilities.NetworkUtils;
@@ -21,6 +24,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormatSymbols;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,12 +33,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import static com.fuego.moviepoint.App.CHANNEL_1_ID;
 import static com.fuego.moviepoint.App.CHANNEL_2_ID;
 
 public class MovieDetailActivity extends AppCompatActivity {
     private static final String TAG = MovieDetailActivity.class.getSimpleName();
+    private List<Cast> cast = new ArrayList<>();
 
     public static final String EXTRA_TMDBID = "com.fuego.moviepoint.Activities.extra.TMDBID";
     public static final String EXTRA_TITLE = "com.fuego.moviepoint.Activities.extra.TITLE";
@@ -47,6 +55,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private ImageView imageView;
     Intent intent;
     private NotificationManagerCompat notificationManager;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +80,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         imageView = findViewById(R.id.movie_poster);
         watchlistFab = findViewById(R.id.fab_watchlist);
         historyFab = findViewById(R.id.fab_history);
+
+        recyclerView = findViewById(R.id.movie_cast);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(false);
 
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
@@ -148,7 +161,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     public class FetchMovieById extends AsyncTask<Void, Void, Void> {
         final private String API_KEY = "8792d844a767cde129ca36235f60093c";
-        String url;
+        String url, castUrl;
         private int tmdbId;
 
         JSONObject movieDetails;
@@ -164,7 +177,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             url = "https://api.themoviedb.org/3/movie/" + tmdbId + "?api_key=" + API_KEY + "&language=en-US";
+            castUrl = "https://api.themoviedb.org/3/movie/" + tmdbId + "/credits?api_key=" + API_KEY + "&language=en-US";
+            Log.d(TAG, "doInBackground: " + castUrl);
             movieDetails = NetworkUtils.fetchMovieDetails(url);
+            cast = NetworkUtils.fetchCastData(castUrl);
             return null;
         }
 
@@ -182,6 +198,9 @@ public class MovieDetailActivity extends AppCompatActivity {
                         genre += ", ";
                     }
                 }
+
+                CastAdapter castAdapter = new CastAdapter(cast);
+                recyclerView.setAdapter(castAdapter);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

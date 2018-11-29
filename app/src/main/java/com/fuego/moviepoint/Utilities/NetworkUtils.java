@@ -2,6 +2,7 @@ package com.fuego.moviepoint.Utilities;
 
 import android.util.Log;
 
+import com.fuego.moviepoint.Cast.Cast;
 import com.fuego.moviepoint.Movies.Movie;
 import com.fuego.moviepoint.Search.SearchedMovies;
 
@@ -72,6 +73,26 @@ public class NetworkUtils {
         return movieDetails;
     }
 
+    public static ArrayList<Cast> fetchCastData(String url) {
+        ArrayList<Cast> cast = new ArrayList<>();
+        try {
+            URL new_url = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) new_url.openConnection();
+            connection.connect();
+
+            InputStream inputStream = connection.getInputStream();
+            String results = IOUtils.toString(inputStream);
+            Log.d(TAG, "fetchCastData: " + results);
+            parseCastJson(results, cast);
+            inputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return cast;
+    }
+
+
     public static void parseSearchJson(String data, ArrayList<SearchedMovies> list) {
         try {
             JSONObject mainObject = new JSONObject(data);
@@ -85,6 +106,25 @@ public class NetworkUtils {
                 movie.setOverview(jsonObject.getString("overview"));
                 movie.setDate(jsonObject.getString("release_date"));
                 list.add(movie);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e(TAG, "Error occurred during JSON Parsing", e);
+        }
+    }
+
+    public static void parseCastJson(String data, ArrayList<Cast> list) {
+        try {
+            JSONObject mainObject = new JSONObject(data);
+            JSONArray resArray = mainObject.getJSONArray("cast");
+            for (int i = 0; i < resArray.length(); i++) {
+                JSONObject jsonObject = resArray.getJSONObject(i);
+                Cast cast = new Cast();
+                cast.setName(jsonObject.getString("name"));
+                cast.setRole(jsonObject.getString("character"));
+                cast.setImage(jsonObject.getString("profile_path"));
+                Log.d(TAG, "parseCastJson: " + cast.toString());
+                list.add(cast);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -112,4 +152,6 @@ public class NetworkUtils {
             Log.e(TAG, "Error occurred during JSON Parsing", e);
         }
     }
+
+
 }
