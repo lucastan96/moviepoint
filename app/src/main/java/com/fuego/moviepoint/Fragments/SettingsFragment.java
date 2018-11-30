@@ -1,4 +1,4 @@
-package com.fuego.moviepoint.Fragment;
+package com.fuego.moviepoint.Fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +12,7 @@ import com.fuego.moviepoint.Movies.MovieViewModel;
 import com.fuego.moviepoint.R;
 
 import androidx.lifecycle.ViewModelProviders;
+import androidx.preference.CheckBoxPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -20,6 +21,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     private MovieViewModel movieViewModel;
     private ListPreference region;
+    private androidx.preference.CheckBoxPreference notifications;
     private SharedPreferences mPrefs;
     private String defaultValue;
 
@@ -29,15 +31,20 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
-        defaultValue = getResources().getString(R.string.default_region);
+        defaultValue = getResources().getString(R.string.region_default);
+        String savedRegion = mPrefs.getString(getString(R.string.region), defaultValue);
 
         Preference clearCache = findPreference("deleteAll");
-        region = (ListPreference) findPreference("region");
         Preference aboutActivity = findPreference("about");
 
-        String savedRegion = mPrefs.getString(getString(R.string.region), defaultValue);
-        region.setSummary(savedRegion);
-        region.setDefaultValue(1);
+        notifications = (CheckBoxPreference) findPreference("notifications");
+        notifications.setDefaultValue(true);
+        notifications.setOnPreferenceChangeListener((preference, newValue) -> {
+            mPrefs.edit()
+                    .putBoolean(getString(R.string.notifications), Boolean.valueOf(newValue.toString()))
+                    .apply();
+            return true;
+        });
 
         clearCache.setOnPreferenceClickListener(preference -> {
             movieViewModel.deleteAllMovies();
@@ -45,6 +52,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             return true;
         });
 
+        region = (ListPreference) findPreference("region");
+        region.setSummary(savedRegion);
+        region.setDefaultValue(1);
         region.setOnPreferenceChangeListener((preference, newRegion) -> {
             mPrefs.edit()
                     .putString(getString(R.string.region), newRegion.toString())
@@ -59,8 +69,5 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             startActivity(intent);
             return true;
         });
-
     }
-
-
 }

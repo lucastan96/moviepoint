@@ -2,13 +2,16 @@ package com.fuego.moviepoint.Activities;
 
 import android.app.Notification;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fuego.moviepoint.Cast.Cast;
 import com.fuego.moviepoint.Cast.CastAdapter;
@@ -64,6 +67,9 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         mWatchlistViewModal = ViewModelProviders.of(this).get(WatchlistViewModal.class);
         notificationManager = NotificationManagerCompat.from(this);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        Boolean notificationOn = prefs.getBoolean(getString(R.string.notifications), true);
 
         intent = getIntent();
 
@@ -126,7 +132,11 @@ public class MovieDetailActivity extends AppCompatActivity {
             watchlist.setDate(intent.getStringExtra(EXTRA_DATE));
             watchlist.setWatched(false);
             mWatchlistViewModal.insert(watchlist);
-            watchlistNotification();
+            if (notificationOn) {
+                watchlistNotification();
+            } else {
+                Toast.makeText(this, "Added to watchlist", Toast.LENGTH_SHORT).show();
+            }
         });
 
         historyFab.setOnClickListener(v -> {
@@ -138,7 +148,11 @@ public class MovieDetailActivity extends AppCompatActivity {
             watchlist.setDate(intent.getStringExtra(EXTRA_DATE));
             watchlist.setWatched(true);
             mWatchlistViewModal.insert(watchlist);
-            watchedNotification();
+            if (notificationOn) {
+                watchedNotification();
+            } else {
+                Toast.makeText(this, "Added to watch history", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -148,9 +162,9 @@ public class MovieDetailActivity extends AppCompatActivity {
             int year = Integer.parseInt(intent.getStringExtra(EXTRA_DATE).substring(0, 4));
             String month = new DateFormatSymbols().getMonths()[Integer.parseInt(intent.getStringExtra(EXTRA_DATE).substring(5, 7)) - 1];
             int day = Integer.parseInt(intent.getStringExtra(EXTRA_DATE).substring(8, 10));
-            movieReleaseDate.setText(month + " " + day + ", " + year);
+            movieReleaseDate.setText(new StringBuilder().append(month).append(" ").append(day).append(", ").append(year).toString());
         } else {
-            movieReleaseDate.setText("Release Date TBA");
+            movieReleaseDate.setText(getString(R.string.movie_release_tba));
         }
     }
 
@@ -227,7 +241,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
             if (runtime != 0) {
                 movieRuntime.setVisibility(View.VISIBLE);
-                movieRuntime.setText(runtime + " Minutes");
+                movieRuntime.setText(new StringBuilder().append(runtime).append(" Minutes").toString());
             }
             if (status != null) {
                 movieStatus.setVisibility(View.VISIBLE);

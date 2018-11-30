@@ -1,4 +1,4 @@
-package com.fuego.moviepoint.Fragment;
+package com.fuego.moviepoint.Fragments;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fuego.moviepoint.Activities.MovieDetailActivity;
+import com.fuego.moviepoint.Movies.MovieAdapter;
+import com.fuego.moviepoint.Movies.MovieViewModel;
 import com.fuego.moviepoint.R;
-import com.fuego.moviepoint.Watchlist.WatchlistAdapter;
-import com.fuego.moviepoint.Watchlist.WatchlistViewModal;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,12 +18,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class WatchlistFragment extends Fragment {
+public class TheaterFragment extends Fragment {
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_watchlist, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_theater, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
@@ -35,12 +34,12 @@ public class WatchlistFragment extends Fragment {
         }
         recyclerView.setHasFixedSize(false);
 
-        WatchlistAdapter adapter = new WatchlistAdapter();
+        MovieAdapter adapter = new MovieAdapter();
         recyclerView.setAdapter(adapter);
 
         if (getActivity() != null) {
-            WatchlistViewModal watchlistViewModal = ViewModelProviders.of(getActivity()).get(WatchlistViewModal.class);
-            watchlistViewModal.getAllMovies().observe(this, adapter::setMovies);
+            MovieViewModel movieViewModel = ViewModelProviders.of(getActivity()).get(MovieViewModel.class);
+            movieViewModel.getAllMovies().observe(this, adapter::setMovies);
         }
 
         adapter.setOnItemClickListener(movie -> {
