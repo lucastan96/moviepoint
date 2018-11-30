@@ -18,12 +18,10 @@ import androidx.preference.PreferenceFragmentCompat;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
-    private static final String TAG = SettingsFragment.class.getSimpleName();
     private MovieViewModel movieViewModel;
-    private Preference clearCache, aboutActivity;
     private ListPreference region;
     private SharedPreferences mPrefs;
-    private String savedRegion, defaultValue;
+    private String defaultValue;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -33,11 +31,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
         defaultValue = getResources().getString(R.string.default_region);
 
-        clearCache = findPreference("deleteAll");
+        Preference clearCache = findPreference("deleteAll");
         region = (ListPreference) findPreference("region");
-        aboutActivity = findPreference("about");
+        Preference aboutActivity = findPreference("about");
 
-        savedRegion = mPrefs.getString(getString(R.string.region), defaultValue);
+        String savedRegion = mPrefs.getString(getString(R.string.region), defaultValue);
         region.setSummary(savedRegion);
         region.setDefaultValue(1);
 

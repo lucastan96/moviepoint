@@ -51,11 +51,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     public static final String EXTRA_DATE = "com.fuego.moviepoint.Activities.extra.DATE";
 
     private WatchlistViewModal mWatchlistViewModal;
-    private Toolbar toolbar;
     private ScrollView scrollView;
-    private FloatingActionButton watchlistFab, historyFab;
-    private TextView movieTitle, movieReleaseDate, movieRuntime, movieStatus, movieTagline, moviePlotTitle, moviePlot, movieGenreTitle, movieGenre;
-    private ImageView imageView;
+    private TextView movieReleaseDate, movieRuntime, movieStatus, movieTagline, moviePlotTitle, moviePlot, movieGenreTitle, movieGenre;
     Intent intent;
     private NotificationManagerCompat notificationManager;
     private RecyclerView movieCast;
@@ -70,6 +67,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         intent = getIntent();
 
+        TextView movieTitle;
         movieTitle = findViewById(R.id.movie_title);
         movieReleaseDate = findViewById(R.id.movie_release_date);
         movieRuntime = findViewById(R.id.movie_runtime);
@@ -80,22 +78,24 @@ public class MovieDetailActivity extends AppCompatActivity {
         movieGenreTitle = findViewById(R.id.movie_genre_title);
         movieGenre = findViewById(R.id.movie_genre);
 
-        imageView = findViewById(R.id.movie_poster);
-        watchlistFab = findViewById(R.id.fab_watchlist);
-        historyFab = findViewById(R.id.fab_history);
+        ImageView imageView = findViewById(R.id.movie_poster);
+        FloatingActionButton watchlistFab = findViewById(R.id.fab_watchlist);
+        FloatingActionButton historyFab = findViewById(R.id.fab_history);
 
         movieCast = findViewById(R.id.movie_cast);
         movieCast.setLayoutManager(new LinearLayoutManager(this));
         movieCast.setHasFixedSize(false);
         movieCast.setNestedScrollingEnabled(false);
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
         toolbar.setNavigationOnClickListener(v -> finish());
 
         if (intent.hasExtra(EXTRA_TITLE)) {
-            new FetchMovieById(intent.getExtras().getInt(EXTRA_TMDBID)).execute();
+            new FetchMovieById(Objects.requireNonNull(intent.getExtras()).getInt(EXTRA_TMDBID)).execute();
 
             Objects.requireNonNull(getSupportActionBar()).setTitle(intent.getStringExtra(EXTRA_TITLE));
             movieTitle.setText(intent.getStringExtra(EXTRA_TITLE));
@@ -184,9 +184,10 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         private int runtime;
         private String status, tagline, genre = "";
+        private StringBuilder stringBuilder;
         private JSONArray genreArray;
 
-        public FetchMovieById(int tmdbId) {
+        FetchMovieById(int tmdbId) {
             this.tmdbId = tmdbId;
         }
 
@@ -208,12 +209,15 @@ public class MovieDetailActivity extends AppCompatActivity {
                 status = movieDetails.getString("status");
                 tagline = movieDetails.getString("tagline");
                 genreArray = movieDetails.getJSONArray("genres");
+
+                stringBuilder = new StringBuilder();
                 for (int i = 0; i < genreArray.length(); i++) {
-                    genre += genreArray.getJSONObject(i).getString("name");
+                    stringBuilder.append(genreArray.getJSONObject(i).getString("name"));
                     if (i + 1 != genreArray.length()) {
-                        genre += ", ";
+                        stringBuilder.append(", ");
                     }
                 }
+                genre = stringBuilder.toString();
 
                 CastAdapter castAdapter = new CastAdapter(cast);
                 movieCast.setAdapter(castAdapter);

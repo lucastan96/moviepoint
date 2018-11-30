@@ -30,8 +30,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
-    private static final String TAG = MainActivity.class.getSimpleName();
-
     public static Activity main;
     private MovieViewModel movieViewModel;
     ProgressBar progressBar;
@@ -66,7 +64,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
             currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);

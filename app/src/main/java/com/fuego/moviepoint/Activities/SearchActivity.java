@@ -26,7 +26,6 @@ public class SearchActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     private SearchedMovieViewModel movieViewModel;
     private EditText searchField;
-    private int orientation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         searchField = findViewById(R.id.search_edit_text);
 
-        orientation = this.getResources().getConfiguration().orientation;
+        int orientation = this.getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         } else {
@@ -52,8 +51,9 @@ public class SearchActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
         toolbar.setNavigationOnClickListener(v -> finish());
 
         searchField.addTextChangedListener(new TextWatcher() {
@@ -90,7 +90,7 @@ public class SearchActivity extends AppCompatActivity {
         String searchQuery;
         private String query;
 
-        public FetchMovies(String query) {
+        FetchMovies(String query) {
             this.query = query;
         }
 

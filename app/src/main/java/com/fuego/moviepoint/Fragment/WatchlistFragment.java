@@ -12,8 +12,7 @@ import com.fuego.moviepoint.R;
 import com.fuego.moviepoint.Watchlist.WatchlistAdapter;
 import com.fuego.moviepoint.Watchlist.WatchlistViewModal;
 
-import java.util.Objects;
-
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -21,18 +20,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class WatchlistFragment extends Fragment {
 
-    RecyclerView recyclerView;
-    private WatchlistViewModal mWatchlistViewModal;
-    private int orientation;
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_watchlist, container, false);
 
-        recyclerView = view.findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
-        orientation = this.getResources().getConfiguration().orientation;
+        int orientation = this.getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         } else {
@@ -43,8 +38,10 @@ public class WatchlistFragment extends Fragment {
         WatchlistAdapter adapter = new WatchlistAdapter();
         recyclerView.setAdapter(adapter);
 
-        mWatchlistViewModal = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(WatchlistViewModal.class);
-        mWatchlistViewModal.getAllMovies().observe(this, adapter::setMovies);
+        if (getActivity() != null) {
+            WatchlistViewModal watchlistViewModal = ViewModelProviders.of(getActivity()).get(WatchlistViewModal.class);
+            watchlistViewModal.getAllMovies().observe(this, adapter::setMovies);
+        }
 
         adapter.setOnItemClickListener(movie -> {
             Intent intent = new Intent(getActivity(), MovieDetailActivity.class);

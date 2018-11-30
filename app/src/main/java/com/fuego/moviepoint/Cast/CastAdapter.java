@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastHolder> {
 
-    public static final String MOVIE_BASE_URL = "https://image.tmdb.org/t/p/w185";
+    private static final String MOVIE_BASE_URL = "https://image.tmdb.org/t/p/w185";
     private List<Cast> cast;
 
     public CastAdapter(List<Cast> cast) {
@@ -67,7 +67,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastHolder> {
         private TextView textViewRole;
         private ImageView imageViewImage;
 
-        public CastHolder(@NonNull View itemView) {
+        CastHolder(@NonNull View itemView) {
             super(itemView);
             textViewName = itemView.findViewById(R.id.cast_name);
             textViewRole = itemView.findViewById(R.id.cast_role);

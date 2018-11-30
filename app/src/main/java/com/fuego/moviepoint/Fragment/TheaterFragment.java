@@ -12,25 +12,21 @@ import com.fuego.moviepoint.Movies.MovieAdapter;
 import com.fuego.moviepoint.Movies.MovieViewModel;
 import com.fuego.moviepoint.R;
 
-import java.util.Objects;
-
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class TheaterFragment extends Fragment {
-    private MovieViewModel movieViewModel;
-    RecyclerView recyclerView;
-    private int orientation;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_theater, container, false);
 
-        recyclerView = view.findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
-        orientation = this.getResources().getConfiguration().orientation;
+        int orientation = this.getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         } else {
@@ -41,8 +37,10 @@ public class TheaterFragment extends Fragment {
         MovieAdapter adapter = new MovieAdapter();
         recyclerView.setAdapter(adapter);
 
-        movieViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(MovieViewModel.class);
-        movieViewModel.getAllMovies().observe(this, adapter::setMovies);
+        if (getActivity() != null) {
+            MovieViewModel movieViewModel = ViewModelProviders.of(getActivity()).get(MovieViewModel.class);
+            movieViewModel.getAllMovies().observe(this, adapter::setMovies);
+        }
 
         adapter.setOnItemClickListener(movie -> {
             Intent intent = new Intent(getActivity(), MovieDetailActivity.class);

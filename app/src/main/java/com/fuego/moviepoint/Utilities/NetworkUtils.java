@@ -92,8 +92,7 @@ public class NetworkUtils {
         return cast;
     }
 
-
-    public static void parseSearchJson(String data, ArrayList<SearchedMovies> list) {
+    private static void parseSearchJson(String data, ArrayList<SearchedMovies> list) {
         try {
             JSONObject mainObject = new JSONObject(data);
             JSONArray resArray = mainObject.getJSONArray("results");
@@ -113,7 +112,7 @@ public class NetworkUtils {
         }
     }
 
-    public static void parseCastJson(String data, ArrayList<Cast> list) {
+    private static void parseCastJson(String data, ArrayList<Cast> list) {
         try {
             JSONObject mainObject = new JSONObject(data);
             JSONArray resArray = mainObject.getJSONArray("cast");
@@ -132,8 +131,7 @@ public class NetworkUtils {
         }
     }
 
-
-    public static void parseJson(String data, ArrayList<Movie> list) {
+    private static void parseJson(String data, ArrayList<Movie> list) {
         try {
             JSONObject mainObject = new JSONObject(data);
             JSONArray resArray = mainObject.getJSONArray("results");
@@ -152,6 +150,4 @@ public class NetworkUtils {
             Log.e(TAG, "Error occurred during JSON Parsing", e);
         }
     }
-
-
 }
