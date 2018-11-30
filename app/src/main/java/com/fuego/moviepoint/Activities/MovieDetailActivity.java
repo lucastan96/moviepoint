@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.fuego.moviepoint.Cast.Cast;
@@ -50,12 +51,14 @@ public class MovieDetailActivity extends AppCompatActivity {
     public static final String EXTRA_DATE = "com.fuego.moviepoint.Activities.extra.DATE";
 
     private WatchlistViewModal mWatchlistViewModal;
+    private Toolbar toolbar;
+    private ScrollView scrollView;
     private FloatingActionButton watchlistFab, historyFab;
-    private TextView movieTitle, movieReleaseDate, movieRuntime, movieStatus, movieTagline, moviePlot, movieGenreTitle, movieGenre;
+    private TextView movieTitle, movieReleaseDate, movieRuntime, movieStatus, movieTagline, moviePlotTitle, moviePlot, movieGenreTitle, movieGenre;
     private ImageView imageView;
     Intent intent;
     private NotificationManagerCompat notificationManager;
-    private RecyclerView recyclerView;
+    private RecyclerView movieCast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +69,13 @@ public class MovieDetailActivity extends AppCompatActivity {
         notificationManager = NotificationManagerCompat.from(this);
 
         intent = getIntent();
-        Toolbar toolbar = findViewById(R.id.toolbar);
 
         movieTitle = findViewById(R.id.movie_title);
         movieReleaseDate = findViewById(R.id.movie_release_date);
         movieRuntime = findViewById(R.id.movie_runtime);
         movieStatus = findViewById(R.id.movie_status);
         movieTagline = findViewById(R.id.movie_tagline);
+        moviePlotTitle = findViewById(R.id.movie_plot_title);
         moviePlot = findViewById(R.id.movie_plot);
         movieGenreTitle = findViewById(R.id.movie_genre_title);
         movieGenre = findViewById(R.id.movie_genre);
@@ -81,17 +84,20 @@ public class MovieDetailActivity extends AppCompatActivity {
         watchlistFab = findViewById(R.id.fab_watchlist);
         historyFab = findViewById(R.id.fab_history);
 
-        recyclerView = findViewById(R.id.movie_cast);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(false);
+        movieCast = findViewById(R.id.movie_cast);
+        movieCast.setLayoutManager(new LinearLayoutManager(this));
+        movieCast.setHasFixedSize(false);
+        movieCast.setNestedScrollingEnabled(false);
 
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setNavigationOnClickListener(v -> finish());
 
         if (intent.hasExtra(EXTRA_TITLE)) {
             new FetchMovieById(intent.getExtras().getInt(EXTRA_TMDBID)).execute();
 
-            Objects.requireNonNull(getSupportActionBar()).setTitle("");
+            Objects.requireNonNull(getSupportActionBar()).setTitle(intent.getStringExtra(EXTRA_TITLE));
             movieTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             moviePlot.setText(intent.getStringExtra(EXTRA_OVERVIEW));
             setReleaseDate();
@@ -100,6 +106,16 @@ public class MovieDetailActivity extends AppCompatActivity {
                     .placeholder(R.drawable.ic_film_placeholder)
                     .into(imageView);
         }
+
+        scrollView = findViewById(R.id.movie_details);
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> {
+            int scrollY = scrollView.getScrollY();
+            if (scrollY >= 150) {
+                getSupportActionBar().setDisplayShowTitleEnabled(true);
+            } else {
+                getSupportActionBar().setDisplayShowTitleEnabled(false);
+            }
+        });
 
         watchlistFab.setOnClickListener(v -> {
             Watchlist watchlist = new Watchlist();
@@ -200,7 +216,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 }
 
                 CastAdapter castAdapter = new CastAdapter(cast);
-                recyclerView.setAdapter(castAdapter);
+                movieCast.setAdapter(castAdapter);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -213,9 +229,14 @@ public class MovieDetailActivity extends AppCompatActivity {
                 movieStatus.setVisibility(View.VISIBLE);
                 movieStatus.setText(status);
             }
-            if (tagline != null) {
-                movieTagline.setVisibility(View.VISIBLE);
-                movieTagline.setText(tagline);
+            if (intent.getStringExtra(EXTRA_OVERVIEW).equals("")) {
+                moviePlotTitle.setVisibility(View.GONE);
+                moviePlot.setVisibility(View.GONE);
+            } else {
+                if (tagline != null) {
+                    movieTagline.setVisibility(View.VISIBLE);
+                    movieTagline.setText(tagline);
+                }
             }
             if (genre.length() != 0) {
                 movieGenreTitle.setVisibility(View.VISIBLE);

@@ -40,6 +40,8 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastHolder> {
         holder.textViewRole.setText(currentCast.getRole());
 
         Picasso.get().load(MOVIE_BASE_URL + currentCast.getImage())
+                .resize(500, 500)
+                .centerCrop()
                 .placeholder(R.drawable.ic_film_placeholder)
                 .into(holder.imageViewImage, new Callback() {
                     @Override
@@ -57,7 +59,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastHolder> {
 
     @Override
     public int getItemCount() {
-        return cast.size();
+        return 5;
     }
 
     class CastHolder extends RecyclerView.ViewHolder {
