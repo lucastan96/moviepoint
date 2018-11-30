@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import com.fuego.moviepoint.Activities.AboutActivity;
+import com.fuego.moviepoint.Activities.MainActivity;
 import com.fuego.moviepoint.Movies.MovieViewModel;
 import com.fuego.moviepoint.R;
 
@@ -51,6 +52,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     .putString(getString(R.string.region), newRegion.toString())
                     .apply();
             region.setSummary(mPrefs.getString(getString(R.string.region), defaultValue));
+            MainActivity.main.finish();
             return true;
         });
 

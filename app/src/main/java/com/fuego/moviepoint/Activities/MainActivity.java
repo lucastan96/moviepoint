@@ -1,5 +1,6 @@
 package com.fuego.moviepoint.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -31,6 +32,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    public static Activity main;
     private MovieViewModel movieViewModel;
     ProgressBar progressBar;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        main = this;
 
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
