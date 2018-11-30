@@ -6,8 +6,6 @@
         <item>China</item>
         <item>Malaysia</item>
     </string-array>
-
-    <!-- foreground color values array -->
     <string-array name="regions_values_array">
         <item>US</item>
         <item>IE</item>

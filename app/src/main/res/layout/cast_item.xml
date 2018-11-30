@@ -17,7 +17,7 @@
             android:id="@+id/cast_photo"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:contentDescription="Cast Photo" />
+            android:contentDescription="@string/movie_cast_photo" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Moviepoint</string>
+    <string name="app_icon">Moviepoint Icon</string>
     <string name="app_logo">Moviepoint Logo</string>
 
     <string name="nav_bottom_1">In Theaters</string>
@@ -7,15 +8,26 @@
     <string name="nav_bottom_3">History</string>
     <string name="nav_action_1">Search</string>
     <string name="nav_action_2">Settings</string>
-    <string name="title_activity_main_activity">MainActivityA</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
 
-    <!--Shard Preference Values-->
-    <string name="preference_file_key">com.fuego.moviepoint.PREFERENCE_FILE_KEY</string>
+    <string name="movie_poster">Movie Poster</string>
+    <string name="movie_title">Title</string>
+    <string name="movie_release">Date</string>
+    <string name="movie_runtime">… Minutes</string>
+    <string name="movie_status">…</string>
+    <string name="movie_tagline">Tagline</string>
+    <string name="movie_plot">Plot</string>
+    <string name="movie_genre">Genre</string>
+    <string name="movie_cast">Cast</string>
+    <string name="movie_cast_photo">Cast Photo</string>
+
+    <string name="search">Search</string>
+
+    <string name="about_rights">All Rights Reserved.</string>
+    <string name="about_computing">A Computing Mobile Development Project.</string>
+    <string name="about_lucas">Lucas Tan</string>
+    <string name="about_sean">Sean Joyce</string>
+    <string name="about_team">Team</string>
 
     <string name="region">saved_region</string>
     <string name="default_region">US</string>
-
 </resources>
