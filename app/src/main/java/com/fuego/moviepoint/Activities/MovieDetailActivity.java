@@ -252,8 +252,10 @@ public class MovieDetailActivity extends AppCompatActivity {
                 moviePlot.setVisibility(View.GONE);
             } else {
                 if (tagline != null) {
-                    movieTagline.setVisibility(View.VISIBLE);
-                    movieTagline.setText(tagline);
+                    if (!tagline.equals("")) {
+                        movieTagline.setVisibility(View.VISIBLE);
+                        movieTagline.setText(tagline);
+                    }
                 }
             }
             if (genre.length() != 0) {
