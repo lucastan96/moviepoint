@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import com.fuego.moviepoint.Activities.AboutActivity;
+import com.fuego.moviepoint.Activities.MainActivity;
 import com.fuego.moviepoint.Movies.MovieViewModel;
 import com.fuego.moviepoint.R;
 
@@ -17,12 +18,10 @@ import androidx.preference.PreferenceFragmentCompat;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
-    private static final String TAG = SettingsFragment.class.getSimpleName();
     private MovieViewModel movieViewModel;
-    private Preference clearCache, aboutActivity;
     private ListPreference region;
     private SharedPreferences mPrefs;
-    private String savedRegion, defaultValue;
+    private String defaultValue;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -32,16 +31,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
         defaultValue = getResources().getString(R.string.default_region);
 
-        clearCache = findPreference("deleteAll");
+        Preference clearCache = findPreference("deleteAll");
         region = (ListPreference) findPreference("region");
-        aboutActivity = findPreference("about");
+        Preference aboutActivity = findPreference("about");
 
-        savedRegion = mPrefs.getString(getString(R.string.region), defaultValue);
+        String savedRegion = mPrefs.getString(getString(R.string.region), defaultValue);
         region.setSummary(savedRegion);
+        region.setDefaultValue(1);
 
         clearCache.setOnPreferenceClickListener(preference -> {
             movieViewModel.deleteAllMovies();
-            Toast.makeText(getActivity(), "Cleared all Movies", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Cleared all cached data", Toast.LENGTH_SHORT).show();
             return true;
         });
 
@@ -50,6 +50,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     .putString(getString(R.string.region), newRegion.toString())
                     .apply();
             region.setSummary(mPrefs.getString(getString(R.string.region), defaultValue));
+            MainActivity.main.finish();
             return true;
         });
 

@@ -69,6 +69,7 @@ public class SearchedMoviesAdapter extends RecyclerView.Adapter<SearchedMoviesAd
         void onItemClick(SearchedMovies movie);
     }
 
+
     class MovieHolder extends RecyclerView.ViewHolder {
         private TextView textViewTitle;
         private ImageView textViewImagePath;

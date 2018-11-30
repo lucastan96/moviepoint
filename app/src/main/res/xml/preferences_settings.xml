@@ -11,6 +11,7 @@
         android:summary="Delete all cached data from app"
         android:title="Clear Local Cache" />
     <ListPreference
+        android:defaultValue="@string/default_region"
         android:entries="@array/region_names_array"
         android:entryValues="@array/regions_values_array"
         android:icon="@drawable/ic_globe"

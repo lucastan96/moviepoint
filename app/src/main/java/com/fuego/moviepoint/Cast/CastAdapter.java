@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastHolder> {
 
-    public static final String MOVIE_BASE_URL = "https://image.tmdb.org/t/p/w185";
+    private static final String MOVIE_BASE_URL = "https://image.tmdb.org/t/p/w185";
     private List<Cast> cast;
 
     public CastAdapter(List<Cast> cast) {
@@ -40,6 +40,8 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastHolder> {
         holder.textViewRole.setText(currentCast.getRole());
 
         Picasso.get().load(MOVIE_BASE_URL + currentCast.getImage())
+                .resize(500, 500)
+                .centerCrop()
                 .placeholder(R.drawable.ic_film_placeholder)
                 .into(holder.imageViewImage, new Callback() {
                     @Override
@@ -57,7 +59,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastHolder> {
 
     @Override
     public int getItemCount() {
-        return cast.size();
+        return 5;
     }
 
     class CastHolder extends RecyclerView.ViewHolder {
@@ -65,7 +67,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastHolder> {
         private TextView textViewRole;
         private ImageView imageViewImage;
 
-        public CastHolder(@NonNull View itemView) {
+        CastHolder(@NonNull View itemView) {
             super(itemView);
             textViewName = itemView.findViewById(R.id.cast_name);
             textViewRole = itemView.findViewById(R.id.cast_role);

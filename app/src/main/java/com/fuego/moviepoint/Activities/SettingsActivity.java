@@ -1,5 +1,6 @@
 package com.fuego.moviepoint.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.fuego.moviepoint.R;
@@ -15,8 +16,25 @@ public class SettingsActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Settings");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Settings");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (MainActivity.main.isDestroyed()) {
+            Intent i = new Intent(SettingsActivity.this, MainActivity.class);
+            startActivity(i);
+        }
     }
 }
