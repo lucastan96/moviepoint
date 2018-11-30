@@ -38,10 +38,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         savedRegion = mPrefs.getString(getString(R.string.region), defaultValue);
         region.setSummary(savedRegion);
+        region.setDefaultValue(1);
 
         clearCache.setOnPreferenceClickListener(preference -> {
             movieViewModel.deleteAllMovies();
-            Toast.makeText(getActivity(), "Cleared all Movies", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Cleared all cached data", Toast.LENGTH_SHORT).show();
             return true;
         });
 

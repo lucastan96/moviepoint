@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -129,7 +130,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     public class FetchMovies extends AsyncTask<Void, Void, Void> {
         final private String API_KEY = "8792d844a767cde129ca36235f60093c";
-        private String savedRegion = mPrefs.getString(getString(R.string.region), getResources().getString(R.string.default_region));
+        private String defaultRegion = getResources().getString(R.string.default_region);
+        private String savedRegion = mPrefs.getString(getString(R.string.region), defaultRegion);
 
         String popularMovies;
         ArrayList<Movie> mPopularList;
@@ -146,6 +148,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         protected void onPreExecute() {
             super.onPreExecute();
             progressBar.setVisibility(View.VISIBLE);
+            if (!mPrefs.contains(getString(R.string.region))) {
+                mPrefs.edit()
+                        .putString(getString(R.string.region), defaultRegion)
+                        .apply();
+            }
         }
 
         @Override

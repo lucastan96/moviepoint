@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="region_names_array">
-        <item>Ireland</item>
         <item>United States</item>
+        <item>Ireland</item>
         <item>China</item>
         <item>Malaysia</item>
     </string-array>
 
     <!-- foreground color values array -->
     <string-array name="regions_values_array">
-        <item>IE</item>
         <item>US</item>
+        <item>IE</item>
         <item>CN</item>
         <item>MY</item>
     </string-array>
