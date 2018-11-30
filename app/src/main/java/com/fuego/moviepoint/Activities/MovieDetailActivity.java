@@ -3,10 +3,14 @@ package com.fuego.moviepoint.Activities;
 import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -21,6 +25,7 @@ import com.fuego.moviepoint.Utilities.NetworkUtils;
 import com.fuego.moviepoint.Watchlist.Watchlist;
 import com.fuego.moviepoint.Watchlist.WatchlistViewModal;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -34,9 +39,11 @@ import java.util.Objects;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,7 +51,6 @@ import static com.fuego.moviepoint.App.CHANNEL_1_ID;
 import static com.fuego.moviepoint.App.CHANNEL_2_ID;
 
 public class MovieDetailActivity extends AppCompatActivity {
-    private static final String TAG = MovieDetailActivity.class.getSimpleName();
     private List<Cast> cast = new ArrayList<>();
 
     public static final String EXTRA_TMDBID = "com.fuego.moviepoint.Activities.extra.TMDBID";
@@ -108,18 +114,52 @@ public class MovieDetailActivity extends AppCompatActivity {
             moviePlot.setText(intent.getStringExtra(EXTRA_OVERVIEW));
             setReleaseDate();
 
+            ConstraintLayout layout = findViewById(R.id.movie_details_layout);
             Picasso.get().load(MovieAdapter.MOVIE_BASE_URL + intent.getStringExtra(EXTRA_IMAGE))
                     .placeholder(R.drawable.ic_film_placeholder)
-                    .into(imageView);
+                    .into(imageView, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Drawable drawable = imageView.getDrawable();
+                            BitmapDrawable bitmapDrawable = ((BitmapDrawable) drawable);
+                            Bitmap bitmap = bitmapDrawable.getBitmap();
+                            Palette.from(bitmap).maximumColorCount(16).generate(palette -> {
+                                if (palette != null) {
+                                    Palette.Swatch darkMuted = palette.getDarkMutedSwatch();
+                                    if (darkMuted != null) {
+                                        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(darkMuted.getRgb()));
+                                        layout.setBackgroundColor(darkMuted.getRgb());
+                                        getWindow().setStatusBarColor(darkMuted.getRgb());
+                                    }
+                                    Palette.Swatch lightVibrant = palette.getLightVibrantSwatch();
+                                    if (lightVibrant != null) {
+                                        watchlistFab.setBackgroundTintList(ColorStateList.valueOf(lightVibrant.getRgb()));
+                                        historyFab.setBackgroundTintList(ColorStateList.valueOf(lightVibrant.getRgb()));
+                                        movieStatus.setBackgroundColor(lightVibrant.getRgb());
+                                    }
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+
+                        }
+                    });
         }
 
         scrollView = findViewById(R.id.movie_details);
         scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> {
             int scrollY = scrollView.getScrollY();
-            if (scrollY >= 150) {
+            if (scrollY >= 100) {
                 getSupportActionBar().setDisplayShowTitleEnabled(true);
             } else {
                 getSupportActionBar().setDisplayShowTitleEnabled(false);
+            }
+            if (scrollY > 0) {
+                toolbar.setElevation(20);
+            } else {
+                toolbar.setElevation(0);
             }
         });
 
@@ -209,7 +249,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             url = "https://api.themoviedb.org/3/movie/" + tmdbId + "?api_key=" + API_KEY + "&language=en-US";
             castUrl = "https://api.themoviedb.org/3/movie/" + tmdbId + "/credits?api_key=" + API_KEY + "&language=en-US";
-            Log.d(TAG, "doInBackground: " + castUrl);
             movieDetails = NetworkUtils.fetchMovieDetails(url);
             cast = NetworkUtils.fetchCastData(castUrl);
             return null;

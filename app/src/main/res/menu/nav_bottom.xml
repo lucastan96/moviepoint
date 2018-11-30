@@ -7,11 +7,11 @@
 
     <item
         android:id="@+id/nav_bottom_2"
-        android:icon="@drawable/ic_watchlist"
+        android:icon="@drawable/ic_watchlist_light"
         android:title="@string/nav_bottom_2" />
 
     <item
         android:id="@+id/nav_bottom_3"
-        android:icon="@drawable/ic_history"
+        android:icon="@drawable/ic_history_light"
         android:title="@string/nav_bottom_3" />
 </menu>

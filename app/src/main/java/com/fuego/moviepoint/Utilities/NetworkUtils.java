@@ -82,7 +82,6 @@ public class NetworkUtils {
 
             InputStream inputStream = connection.getInputStream();
             String results = IOUtils.toString(inputStream);
-            Log.d(TAG, "fetchCastData: " + results);
             parseCastJson(results, cast);
             inputStream.close();
 
@@ -122,7 +121,6 @@ public class NetworkUtils {
                 cast.setName(jsonObject.getString("name"));
                 cast.setRole(jsonObject.getString("character"));
                 cast.setImage(jsonObject.getString("profile_path"));
-                Log.d(TAG, "parseCastJson: " + cast.toString());
                 list.add(cast);
             }
         } catch (JSONException e) {
