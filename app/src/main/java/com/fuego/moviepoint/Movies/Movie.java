@@ -6,9 +6,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "movie_table")
 public class Movie {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-
+    @PrimaryKey()
     private int tmdbId;
     private String title;
     private String imagePath;
@@ -18,21 +16,12 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(int id, int tmdbId, String title, String imagePath, String overview, String date) {
-        this.id = id;
+    public Movie(int tmdbId, String title, String imagePath, String overview, String date) {
         this.tmdbId = tmdbId;
         this.title = title;
         this.imagePath = imagePath;
         this.overview = overview;
         this.date = date;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getTmdbId() {
