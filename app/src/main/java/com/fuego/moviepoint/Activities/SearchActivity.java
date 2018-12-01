@@ -1,9 +1,11 @@
 package com.fuego.moviepoint.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -26,6 +28,7 @@ public class SearchActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     private SearchedMovieViewModel movieViewModel;
     private EditText searchField;
+    SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,8 @@ public class SearchActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
         searchField = findViewById(R.id.search_edit_text);
+
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         int orientation = this.getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -64,7 +69,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() >= 2) {
-                    new FetchMovies(searchField.getText().toString()).execute();
+                    new FetchMovies(searchField.getText().toString().trim()).execute();
                 }
             }
 
@@ -86,9 +91,12 @@ public class SearchActivity extends AppCompatActivity {
 
     public class FetchMovies extends AsyncTask<Void, Void, Void> {
         final private String API_KEY = "8792d844a767cde129ca36235f60093c";
+        private String defaultRegion = getResources().getString(R.string.region_default);
+        private String savedRegion = mPrefs.getString(getString(R.string.region), defaultRegion);
         ArrayList<SearchedMovies> searchedMovies = new ArrayList<>();
         String searchQuery;
         private String query;
+
 
         FetchMovies(String query) {
             this.query = query;
@@ -96,7 +104,7 @@ public class SearchActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            searchQuery = " https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY + "&language=en-US&query=" + query + "&page=1&include_adult=false";
+            searchQuery = " https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY + "&language=en-US&query=" + query + "&page=1&include_adult=false&region=" + savedRegion;
             searchedMovies = NetworkUtils.fetchSearchData(searchQuery);
             return null;
         }
