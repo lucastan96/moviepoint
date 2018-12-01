@@ -12,6 +12,7 @@
     <string name="movie_poster">Movie Poster</string>
     <string name="movie_title">Title</string>
     <string name="movie_release">Date</string>
+    <string name="movie_release_tba">Release Date TBA</string>
     <string name="movie_runtime">… Minutes</string>
     <string name="movie_status">…</string>
     <string name="movie_tagline">Tagline</string>
@@ -28,6 +29,7 @@
     <string name="about_sean">Sean Joyce</string>
     <string name="about_team">Team</string>
 
+    <string name="notifications">notifications</string>
     <string name="region">saved_region</string>
-    <string name="default_region">US</string>
+    <string name="region_default">US</string>
 </resources>

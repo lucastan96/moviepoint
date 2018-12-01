@@ -1,4 +1,4 @@
-package com.fuego.moviepoint.Fragment;
+package com.fuego.moviepoint.Fragments;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -18,12 +18,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class HistoryFragment extends Fragment {
+public class WatchlistFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_history, container, false);
+        View view = inflater.inflate(R.layout.fragment_watchlist, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
@@ -40,7 +40,7 @@ public class HistoryFragment extends Fragment {
 
         if (getActivity() != null) {
             WatchlistViewModal watchlistViewModal = ViewModelProviders.of(getActivity()).get(WatchlistViewModal.class);
-            watchlistViewModal.getAllWatchedMovies().observe(this, adapter::setMovies);
+            watchlistViewModal.getAllMovies().observe(this, adapter::setMovies);
         }
 
         adapter.setOnItemClickListener(movie -> {

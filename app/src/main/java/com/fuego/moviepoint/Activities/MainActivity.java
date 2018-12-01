@@ -11,9 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.fuego.moviepoint.Fragment.HistoryFragment;
-import com.fuego.moviepoint.Fragment.TheaterFragment;
-import com.fuego.moviepoint.Fragment.WatchlistFragment;
+import com.fuego.moviepoint.Fragments.HistoryFragment;
+import com.fuego.moviepoint.Fragments.TheaterFragment;
+import com.fuego.moviepoint.Fragments.WatchlistFragment;
 import com.fuego.moviepoint.Movies.Movie;
 import com.fuego.moviepoint.Movies.MovieViewModel;
 import com.fuego.moviepoint.R;
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     public class FetchMovies extends AsyncTask<Void, Void, Void> {
         final private String API_KEY = "8792d844a767cde129ca36235f60093c";
-        private String defaultRegion = getResources().getString(R.string.default_region);
+        private String defaultRegion = getResources().getString(R.string.region_default);
         private String savedRegion = mPrefs.getString(getString(R.string.region), defaultRegion);
 
         String popularMovies;
@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             if (!mPrefs.contains(getString(R.string.region))) {
                 mPrefs.edit()
                         .putString(getString(R.string.region), defaultRegion)
+                        .putBoolean(getString(R.string.notifications), true)
                         .apply();
             }
         }

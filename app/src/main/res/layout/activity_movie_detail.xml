@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/movie_details_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
@@ -11,8 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:elevation="5dp"
+        android:background="@android:color/transparent"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,6 @@
                 android:layout_width="134dp"
                 android:layout_height="190dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
                 android:contentDescription="@string/movie_poster"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -51,7 +50,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginEnd="32dp"
                 android:ellipsize="end"
                 android:text="@string/movie_title"
@@ -224,11 +222,11 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:focusable="true"
-        app:backgroundTint="@color/colorPrimaryDark"
+        app:backgroundTint="@color/colorPrimaryLighter"
         app:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_watchlist" />
+        app:srcCompat="@drawable/ic_watchlist_dark" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_history"
@@ -238,9 +236,9 @@
         android:layout_marginBottom="12dp"
         android:clickable="true"
         android:focusable="true"
-        app:backgroundTint="@color/colorPrimaryDark"
+        app:backgroundTint="@color/colorPrimaryLighter"
         app:layout_constraintBottom_toTopOf="@+id/fab_watchlist"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_history" />
+        app:srcCompat="@drawable/ic_history_dark" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

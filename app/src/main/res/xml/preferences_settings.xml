@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <Preference
+    <CheckBoxPreference
         android:icon="@drawable/ic_notifications"
         android:key="notifications"
-        android:summary="On"
+        android:summary="Notify when movies are added to watchlist/history"
         android:title="Notifications" />
     <Preference
         android:icon="@drawable/ic_trash"
@@ -11,7 +11,7 @@
         android:summary="Delete all cached data from app"
         android:title="Clear Local Cache" />
     <ListPreference
-        android:defaultValue="@string/default_region"
+        android:defaultValue="@string/region_default"
         android:entries="@array/region_names_array"
         android:entryValues="@array/regions_values_array"
         android:icon="@drawable/ic_globe"
