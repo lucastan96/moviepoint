@@ -151,15 +151,12 @@ public class MovieDetailActivity extends AppCompatActivity {
         scrollView = findViewById(R.id.movie_details);
         scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> {
             int scrollY = scrollView.getScrollY();
-            if (scrollY >= 100) {
-                getSupportActionBar().setDisplayShowTitleEnabled(true);
-            } else {
-                getSupportActionBar().setDisplayShowTitleEnabled(false);
-            }
             if (scrollY > 0) {
                 toolbar.setElevation(20);
+                getSupportActionBar().setDisplayShowTitleEnabled(true);
             } else {
                 toolbar.setElevation(0);
+                getSupportActionBar().setDisplayShowTitleEnabled(false);
             }
         });
 
