@@ -7,10 +7,9 @@ import androidx.room.PrimaryKey;
 
 public class SearchedMovies {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-
+    @PrimaryKey()
     private int tmdbId;
+
     private String title;
     private String imagePath;
     private String overview;
@@ -19,21 +18,12 @@ public class SearchedMovies {
     public SearchedMovies() {
     }
 
-    public SearchedMovies(int id, int tmdbId, String title, String imagePath, String overview, String date) {
-        this.id = id;
+    public SearchedMovies(int tmdbId, String title, String imagePath, String overview, String date) {
         this.tmdbId = tmdbId;
         this.title = title;
         this.imagePath = imagePath;
         this.overview = overview;
         this.date = date;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getTmdbId() {

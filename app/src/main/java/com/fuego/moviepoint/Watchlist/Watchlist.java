@@ -7,10 +7,9 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "watchlist_table")
 public class Watchlist {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-
+    @PrimaryKey()
     private int tmdbId;
+
     private String title;
     private String imagePath;
     private String overview;
@@ -20,22 +19,14 @@ public class Watchlist {
     public Watchlist() {
     }
 
-    public Watchlist(int id, int tmdbId, String title, String imagePath, String overview, String date, Boolean watched) {
-        this.id = id;
+    public Watchlist(int tmdbId, String title, String imagePath, String overview, String date, Boolean watched) {
+
         this.tmdbId = tmdbId;
         this.title = title;
         this.imagePath = imagePath;
         this.overview = overview;
         this.date = date;
         this.watched = watched;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getTmdbId() {
