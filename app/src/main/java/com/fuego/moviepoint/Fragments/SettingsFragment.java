@@ -54,6 +54,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             movieViewModel.deleteAllMovies();
             watchlistViewModal.deleteAllMovies();
             Toast.makeText(getActivity(), "Cleared all cached data", Toast.LENGTH_SHORT).show();
+            MainActivity.main.finish();
             return true;
         });
 
