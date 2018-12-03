@@ -10,6 +10,7 @@ import com.fuego.moviepoint.Activities.AboutActivity;
 import com.fuego.moviepoint.Activities.MainActivity;
 import com.fuego.moviepoint.Movies.MovieViewModel;
 import com.fuego.moviepoint.R;
+import com.fuego.moviepoint.Watchlist.WatchlistViewModal;
 
 import androidx.lifecycle.ViewModelProviders;
 import androidx.preference.CheckBoxPreference;
@@ -20,6 +21,7 @@ import androidx.preference.PreferenceFragmentCompat;
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     private MovieViewModel movieViewModel;
+    private WatchlistViewModal watchlistViewModal;
     private ListPreference region;
     private androidx.preference.CheckBoxPreference notifications;
     private SharedPreferences mPrefs;
@@ -31,6 +33,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+        watchlistViewModal = ViewModelProviders.of(this).get(WatchlistViewModal.class);
+
         defaultValue = getResources().getString(R.string.region_default);
         String savedRegion = mPrefs.getString(getString(R.string.region), defaultValue);
 
@@ -48,6 +52,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         clearCache.setOnPreferenceClickListener(preference -> {
             movieViewModel.deleteAllMovies();
+            watchlistViewModal.deleteAllMovies();
             Toast.makeText(getActivity(), "Cleared all cached data", Toast.LENGTH_SHORT).show();
             return true;
         });
