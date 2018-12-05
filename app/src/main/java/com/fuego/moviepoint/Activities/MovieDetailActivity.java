@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -18,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuego.moviepoint.Cast.Cast;
-import com.fuego.moviepoint.Cast.CastAdapter;
 import com.fuego.moviepoint.Movies.MovieAdapter;
 import com.fuego.moviepoint.R;
 import com.fuego.moviepoint.Utilities.NetworkUtils;
@@ -51,8 +51,6 @@ import static com.fuego.moviepoint.App.CHANNEL_1_ID;
 import static com.fuego.moviepoint.App.CHANNEL_2_ID;
 
 public class MovieDetailActivity extends AppCompatActivity {
-    private List<Cast> cast = new ArrayList<>();
-
     public static final String EXTRA_TMDBID = "com.fuego.moviepoint.Activities.extra.TMDBID";
     public static final String EXTRA_TITLE = "com.fuego.moviepoint.Activities.extra.TITLE";
     public static final String EXTRA_IMAGE = "com.fuego.moviepoint.Activities.extra.IMAGE";
@@ -61,10 +59,11 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private WatchlistViewModal mWatchlistViewModal;
     private ScrollView scrollView;
-    private TextView movieReleaseDate, movieRuntime, movieStatus, movieTagline, moviePlotTitle, moviePlot, movieGenreTitle, movieGenre;
+    private TextView movieReleaseDate, movieRuntime, movieStatus, movieTagline, moviePlotTitle, moviePlot, movieGenreTitle, movieGenre, movieCastTitle;
+    private RecyclerView movieCast;
+    private List<Cast> cast = new ArrayList<>();
     Intent intent;
     private NotificationManagerCompat notificationManager;
-    private RecyclerView movieCast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,15 +88,15 @@ public class MovieDetailActivity extends AppCompatActivity {
         moviePlot = findViewById(R.id.movie_plot);
         movieGenreTitle = findViewById(R.id.movie_genre_title);
         movieGenre = findViewById(R.id.movie_genre);
-
-        ImageView imageView = findViewById(R.id.movie_poster);
-        FloatingActionButton watchlistFab = findViewById(R.id.fab_watchlist);
-        FloatingActionButton historyFab = findViewById(R.id.fab_history);
-
+        movieCastTitle = findViewById(R.id.movie_cast_title);
         movieCast = findViewById(R.id.movie_cast);
         movieCast.setLayoutManager(new LinearLayoutManager(this));
         movieCast.setHasFixedSize(false);
         movieCast.setNestedScrollingEnabled(false);
+
+        ImageView imageView = findViewById(R.id.movie_poster);
+        FloatingActionButton watchlistFab = findViewById(R.id.fab_watchlist);
+        FloatingActionButton historyFab = findViewById(R.id.fab_history);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -268,9 +267,6 @@ public class MovieDetailActivity extends AppCompatActivity {
                     }
                 }
                 genre = stringBuilder.toString();
-
-                CastAdapter castAdapter = new CastAdapter(cast);
-                movieCast.setAdapter(castAdapter);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -299,6 +295,13 @@ public class MovieDetailActivity extends AppCompatActivity {
                 movieGenre.setVisibility(View.VISIBLE);
                 movieGenre.setText(genre);
             }
+            Log.d("cast", "onPostExecute: " + cast.size());
+//            if (cast.size() != 0) {
+//                movieCastTitle.setVisibility(View.VISIBLE);
+//                movieCast.setVisibility(View.VISIBLE);
+//                CastAdapter castAdapter = new CastAdapter(cast);
+//                movieCast.setAdapter(castAdapter);
+//            }
         }
     }
 }
