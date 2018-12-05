@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuego.moviepoint.Cast.Cast;
+import com.fuego.moviepoint.Cast.CastAdapter;
 import com.fuego.moviepoint.Movies.MovieAdapter;
 import com.fuego.moviepoint.R;
 import com.fuego.moviepoint.Utilities.NetworkUtils;
@@ -296,12 +297,12 @@ public class MovieDetailActivity extends AppCompatActivity {
                 movieGenre.setText(genre);
             }
             Log.d("cast", "onPostExecute: " + cast.size());
-//            if (cast.size() != 0) {
-//                movieCastTitle.setVisibility(View.VISIBLE);
-//                movieCast.setVisibility(View.VISIBLE);
-//                CastAdapter castAdapter = new CastAdapter(cast);
-//                movieCast.setAdapter(castAdapter);
-//            }
+            if (cast.size() != 0) {
+                movieCastTitle.setVisibility(View.VISIBLE);
+                movieCast.setVisibility(View.VISIBLE);
+                CastAdapter castAdapter = new CastAdapter(cast);
+                movieCast.setAdapter(castAdapter);
+            }
         }
     }
 }
