@@ -272,6 +272,12 @@ public class MovieDetailActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+            if (cast.size() != 0) {
+                movieCastTitle.setVisibility(View.VISIBLE);
+                movieCast.setVisibility(View.VISIBLE);
+                CastAdapter castAdapter = new CastAdapter(cast);
+                movieCast.setAdapter(castAdapter);
+            }
             if (runtime != 0) {
                 movieRuntime.setVisibility(View.VISIBLE);
                 movieRuntime.setText(new StringBuilder().append(runtime).append(" Minutes").toString());
@@ -296,13 +302,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 movieGenre.setVisibility(View.VISIBLE);
                 movieGenre.setText(genre);
             }
-            Log.d("cast", "onPostExecute: " + cast.size());
-            if (cast.size() != 0) {
-                movieCastTitle.setVisibility(View.VISIBLE);
-                movieCast.setVisibility(View.VISIBLE);
-                CastAdapter castAdapter = new CastAdapter(cast);
-                movieCast.setAdapter(castAdapter);
-            }
+
         }
     }
 }
